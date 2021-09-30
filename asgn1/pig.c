@@ -17,7 +17,7 @@ int main(void) {
         }
         printf("Random seed:");
         scanf("%d",&seed);
-        if(seed != 2021 ){
+        if(seed< 4294967295 && seed >=0 ){
             fprintf ( stderr , " Invalid random seed . Using 2021 instead .\n");
         }
         
