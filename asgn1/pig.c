@@ -4,6 +4,7 @@
 int main(void) {
         int players;
 	long long seed;
+	int i;
        /* int scores[10]= {0,0,0,0,0,0,0,0,0,0};
 	typedef enum { SIDE, RAZORBACK, TROTTER, SNOUTER, JOWLER} Position;
         const Position pig[7]= { SIDE, SIDE , RAZORBACK, TROTTER, SNOUTER, JOWLER, JOWLER} ;*/
@@ -28,6 +29,9 @@ int main(void) {
 	    srandom(2021);
             printf (" - generated %lu\n", random () );
         }
-
+	for( i = 0;i<10;i=i+1){
+        printf("%s\n",names[i]);
+        }
+    
         return 0;
 }
