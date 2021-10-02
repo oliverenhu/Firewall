@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "names.h"
+typedef enum { SIDE=0, RAZORBACK=10, TROTTER=10, SNOUTER=15, JOWLER=5} Position;
+const Position pig[7]= { SIDE, SIDE , RAZORBACK, TROTTER, SNOUTER, JOWLER, JOWLER} ;
 int main(void) {
         int players;
 	long long seed;
-       /* int scores[10]= {0,0,0,0,0,0,0,0,0,0};
-	typedef enum { SIDE, RAZORBACK, TROTTER, SNOUTER, JOWLER} Position;
-        const Position pig[7]= { SIDE, SIDE , RAZORBACK, TROTTER, SNOUTER, JOWLER, JOWLER} ;*/
+       // int scores[10]={0,0,0,0,0,0,0,0,0,0};
+	
+        
         printf("How many players ? ");
         scanf("%d",&players);
         if(players>1 && players<11 ){
