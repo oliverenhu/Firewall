@@ -7,11 +7,11 @@ const char* get_position(int points){
     switch (points){
         case 0: return "side";
         case 1: return "side";
-        case 2: return "razorback";
-        case 3: return "trotter";
-        case 4: return "snouter";
-        case 5: return "jowler";
-        case 6: return "jowler";
+        case 2: return "back";
+        case 3: return "upright";
+        case 4: return "snout";
+        case 5: return "ear";
+        case 6: return "ear";
     }
     return "0";
 }
@@ -52,7 +52,7 @@ void check_winner(int players){
             printf("%s rolls the pig... ",names[i]);
             do {
                 if(scores[i]>=100){
-                    printf("%s wins with %d\n",names[i],scores[i]);
+                    printf("\n%s wins with %d\n points!",names[i],scores[i]);
                     win=1;
                     goto WIN;
 
