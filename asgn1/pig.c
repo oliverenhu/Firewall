@@ -52,7 +52,7 @@ void check_winner(int players){
             printf("%s rolls the pig... ",names[i]);
             do {
                 if(scores[i]>=100){
-                    printf("\n%s wins with %d\n points!",names[i],scores[i]);
+                    printf("\n%s wins with %d points!\n",names[i],scores[i]);
                     win=1;
                     goto WIN;
 
