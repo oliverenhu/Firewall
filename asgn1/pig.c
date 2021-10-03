@@ -63,9 +63,9 @@ void check_winner(int players){
                 if(r==0||r==1){
                     printf("pig lands on %s\n",get_position(r));
                 }
-		if(r==3){
+		else if(r==3){
 	 	    printf("pig lands %s ",get_position(r));
-		}
+                }
 		else{
                     printf("pig lands on %s ",get_position(r));
                 }
