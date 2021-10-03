@@ -13,6 +13,7 @@ const char* get_position(int points){
         case 5: return "jowler";
         case 6: return "jowler";
     }
+    return "0";
 }
 void check_winner(int players);
 int main(void) {
