@@ -19,7 +19,7 @@ void check_winner(int players);
 int main(void) {
         int players;
 	long long seed;
-        printf("How many players?");
+        printf("How many players? ");
         scanf("%d",&players);
         if(players<=1 || players>=11 ){
              
@@ -47,7 +47,7 @@ void check_winner(int players){
         for(int i=0;i<players;i=i+1){
             int position;
             int r;
-            printf("%s rolls the pig... ",names[i]);
+            printf("%s rolls the pig...",names[i]);
             do {
                 if(scores[i]>=100){
                     printf("\n%s wins with %d points!\n",names[i],scores[i]);
