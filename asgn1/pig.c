@@ -26,7 +26,7 @@ int main(void) {
           fprintf ( stderr , " Invalid number of players . Using 2 instead .\n");
 	} 
 
-        printf("Random seed:");
+        printf("Random seed: ");
         scanf("%lld",&seed);
         if(seed <= 4294967295 && seed >=0 ){
             srandom(seed);
