@@ -21,12 +21,10 @@ int main(void) {
 	long long seed;
         printf("How many players ? ");
         scanf("%d",&players);
-        if(players>1 && players<11 ){
-            printf("%d players\n", players);
-        }
-        else {
-            fprintf ( stderr , " Invalid number of players . Using 2 instead .\n");
-        }
+        if(players<=1 || players>=11 ){
+             
+          fprintf ( stderr , " Invalid number of players . Using 2 instead .\n");
+	} 
 
         printf("Random seed:");
         scanf("%lld",&seed);
