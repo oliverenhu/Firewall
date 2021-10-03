@@ -19,7 +19,7 @@ void check_winner(int players);
 int main(void) {
         int players;
 	long long seed;
-        printf("How many players? ");
+        printf("How many players?");
         scanf("%d",&players);
         if(players<=1 || players>=11 ){
              
@@ -59,13 +59,13 @@ void check_winner(int players){
                 position=pig[r];
                 scores[i]+=position;
                 if(r==0||r==1){
-                    printf("pig lands on %s\n",get_position(r));
+                    printf(" pig lands on %s\n",get_position(r));
                 }
 		else if(r==3){
-	 	    printf("pig lands %s ",get_position(r));
+	 	    printf(" pig lands %s",get_position(r));
                 }
 		else{
-                    printf("pig lands on %s ",get_position(r));
+                    printf(" pig lands on %s",get_position(r));
                 }
             }while(position!=0);
 
