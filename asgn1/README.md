@@ -6,39 +6,45 @@ This program runs a simple cyclic game based on asking the user for 2 inputs, as
 Pseudocode:
 
 include name.h file / includes the names in a array required to be accessed by the game
+
 include studio.h
+
 include stdlib.h
 
 enumerate pig positions(SIDE, RAZORBACK,TROTTER,SNOUTER,JOWLER) set each to an int associated with the amount of points
+
 establish constant array type Position with the probabilities of the poistion associated with the size of array named pig[]
+
 constant function get_position() that translates based on pig position rolled from in to string by using switch function
-	return 0
+	* return 0
 initialize check_winner function
 
 main
-	define int players
-	define long long seed
-	print "How many players? "
-	ask for int input players
-	if(players <=1 or players >=11)
-		print (" Invalid number of players . Using 2 instead .")
-		players equal 2
-	print ("Random seed: "
-	ask for long long input seed 
-	if(seed <=4294967295 and seed >= 0)
-		set seed through srandom()
-		check_winner() function input players
-	else
-		print(" Invalid random seed . using 2021 instead .")
-		set 2021 through srandom
-		check_winner() function input players
-	return 0
+	* define int players
+	* define long long seed
+	* print "How many players? "
+	* ask for int input players
+	* if(players <=1 or players >=11)
+	+	 print (" Invalid number of players . Using 2 instead .")
+	+	players equal 2
+	* print ("Random seed: "
+	* ask for long long input seed 
+	* if(seed <=4294967295 and seed >= 0)
+	+	set seed through srandom()
+	+	check_winner() function input players
+	* else
+	+	print(" Invalid random seed . using 2021 instead .")
+	+	set 2021 through srandom
+	+	check_winner() function input players
+	* return 0
+
 void check winner function with input as (int players)
-	define scores associated with each player as 0 in an array
-	set win int to 0
+	* define scores associated with each player as 0 in an array
+	* set win int to 0
+
 WIN:
-	while win equal 0
-		interate through players with for loop starting from 0 to players with variable i
+	* while win equal 0
+	+ 	interate through players with for loop starting from 0 to players with variable i
 			define position as int
 			define r as as int
 			print((name[i]) rolls the pig...)
