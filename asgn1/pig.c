@@ -25,6 +25,7 @@ int main(void) {
     if (players <= 1 || players >= 11) {
 
         fprintf(stderr, " Invalid number of players . Using 2 instead .\n");
+        players = 2;
     }
 
     printf("Random seed: ");
