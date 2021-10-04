@@ -27,7 +27,7 @@ DESIGN.pdf
 
 This design document must describe your design anddesign  process  for  your  program  with  enough  detail  such  that  a  sufficiently  knowledgeable  programmerwould be able to replicate your implementation.
 
-#RUNNING
+##RUNNING
 
 INSTRUCTIONS
 
