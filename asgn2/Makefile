@@ -1,13 +1,16 @@
 CC = clang
 CFLAGS = -Wall -Wpedantic -Werror -Wextra
+LFLAGS= -lm
 
-all: pig
+all: math-test	 
 
-pig: pig.o
-	$(CC) -o math-test math-test.o
+math-test: math-test.o e.o
+	$(CC) -o math-test math-test.o $(LFLAGS)
 
-pig.o: pig.c names.h
+math-test.o: math-test.c mathlib.h
 	$(CC) $(CFLAGS) -c math-test.c
+e.0: e.c
+	$(CC) $(CFLAGS) -c e.c
 
 clean:
 	rm -f math-test math-test.o
