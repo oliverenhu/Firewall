@@ -10,6 +10,7 @@ int main ( int argc , char ** argv ) {
 		case 'p':
 		printf ("-p option .\n");
 		e();
+		e_terms();		
 		break;
 		case 'i':
 		printf ("-i option : %s is parameter .\n", optarg ) ;
