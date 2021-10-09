@@ -1,19 +1,20 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "mathlib.h"
-# define OPTIONS "pi:"
+# define OPTIONS "aebmrvnsh"
 
 int main ( int argc , char ** argv ) {
 	int opt = 0;
 	while (( opt = getopt (argc , argv , OPTIONS )) != -1) {
 		switch ( opt ) {
-		case 'p':
-		printf ("-p option .\n");
+		case 'e':
+		printf ("- option .\n");
 		e();
 		e_terms();		
 		break;
-		case 'i':
-		printf ("-i option : %s is parameter .\n", optarg ) ;
+		case 'm':
+		
+		pi_madhava();
 		break ;
 		}
 		}	
