@@ -9,7 +9,7 @@ double sqrt_newton(double x){
 	y = 0.5 * (z + x / z);
 	}
 	
-	printf("%f",y);
+	//printf("%f",y);
 	return y;
 }
 double fabsminus(double y,double z){
