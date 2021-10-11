@@ -31,4 +31,4 @@ clean:
 
 format:
 	clang-format -i -style=file *.[ch]
-
+all: mathlib-test.o e.o newton.o madhava.o euler.o bbp.o viete.o
