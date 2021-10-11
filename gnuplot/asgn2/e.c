@@ -1,5 +1,5 @@
 #include "mathlib.h"
-
+#include <math.h>
 #include <stdio.h>
 int term = 1; //allows for the term to be counted
 
@@ -18,6 +18,7 @@ double e() {
 
         term += 1; // term plus 1
         error = e - pree; // error is caculated and compared to EPSILON in while loop
+	printf("e() = %.15f, M_E = %.15f, diff = %.15f\n", e, M_E, fabs(e - M_E));
 
     } while (error > EPSILON);
 
