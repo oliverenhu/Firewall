@@ -1,5 +1,5 @@
 #include "mathlib.h"
-
+#include <math.h>
 #include <stdio.h>
 int vieterms = 0;
 double pi_viete() {
@@ -17,6 +17,8 @@ double pi_viete() {
         pi *= pow / 2.0;
         error = prepi - pi;
         vieterms += 1;
+	printf("pi_viete() = %.15f, M_PI = %.15f, diff = %.15f\n",2.0/ pi, M_PI, fabs(2.0/pi - M_PI));
+
     }
     pi = 2.0 / pi;
 

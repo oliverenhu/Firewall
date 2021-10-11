@@ -65,8 +65,7 @@ int main(int argc, char **argv) {
         if (s && m)
             printf("pi_madhava() terms = %d\n", pi_madhava_terms());
         if (v)
-            printf("pi_viete() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_viete(), M_PI,
-                fabs(pi_viete() - M_PI));
+            pi_viete();
         if (s && v)
             printf("pi_viete() terms = %d\n", pi_viete_factors());
         if (n) {

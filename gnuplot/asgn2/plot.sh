@@ -2,7 +2,7 @@
 
 make clean && make
 
-./mathlib-test -b|awk -F, '{
+./mathlib-test -v|awk -F, '{
 	split($1,computed, " ");
 	split(computed[1], x, "[()]")
     	split($2, library, " ");
@@ -16,9 +16,9 @@ set terminal pdf
 set key outside
 set zeroaxis
 
-set output "bbp.pdf"
-set title "pi_bbp() vs. M_PI()"
-plot "/tmp/computed.dat" with linespoints title "pi_bbp()", \
+set output "viete.pdf"
+set title "pi_viete() vs. M_PI()"
+plot "/tmp/computed.dat" with linespoints title "pi_viete()", \
     "/tmp/library.dat" with linespoints title "M_PI()"
 EOF
 echo "done."
