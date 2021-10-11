@@ -56,7 +56,7 @@ int main ( int argc , char ** argv ) {
 		}
 		
 	}	
-                if(h)printf("SYNOPSIS\n   A test harness for the small numerical library.\n\nUSAGE\n   ./mathlib-test [-aebmrvnsh]\n\nOPTIONS\n  -a   Runs all tests.\n  -e   Runs e test.\n  -b   Runs BBP pi test.\n  -m   Runs Madhava pi test.\n  -r   Runs Euler pi test.\n  -v   Runs Viete pi test.\n  -n   Runs Newton square root tests.\n  -s Print verbose statistics.\n  -h   Display program synopsis and usage.");
+                if(h)printf("SYNOPSIS\n   A test harness for the small numerical library.\n\nUSAGE\n   ./mathlib-test [-aebmrvnsh]\n\nOPTIONS\n  -a   Runs all tests.\n  -e   Runs e test.\n  -b   Runs BBP pi test.\n  -m   Runs Madhava pi test.\n  -r   Runs Euler pi test.\n  -v   Runs Viete pi test.\n  -n   Runs Newton square root tests.\n  -s   Print verbose statistics.\n  -h   Display program synopsis and usage.\n");
 		else{
 			if(et)printf("e() = %.15f, M_E = %.15f, diff = %.15f\n",e(),M_E,fabs(e()-M_E));
                 	if(s&&et)printf("e() terms = %d\n",e_terms());
