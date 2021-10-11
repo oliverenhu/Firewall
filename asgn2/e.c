@@ -16,7 +16,7 @@ double e() {
 
         preterm = term * preterm; //factorial is saved in preterm
 
-        term += 1; term // term plus 1
+        term += 1;  // term plus 1
         error = e - pree;// error is caculated and compared to EPSILON in while loop
 
     } while (error > EPSILON);
