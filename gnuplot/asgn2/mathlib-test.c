@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
                " Print verbose statistics.\n  -h   Display program synopsis and usage.\n");
     else {
         if (et)
-            printf("e() = %.15f, M_E = %.15f, diff = %.15f\n", e(), M_E, fabs(e() - M_E));
+            e();
         if (s && et)
             printf("e() terms = %d\n", e_terms());
         if (r)
