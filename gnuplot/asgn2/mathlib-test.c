@@ -51,8 +51,8 @@ int main(int argc, char **argv) {
         if (s && et)
             printf("e() terms = %d\n", e_terms());
         if (r)
-            printf("pi_euler() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_euler(), M_PI,
-                fabs(pi_euler() - M_PI));
+           
+            pi_euler();
         if (s && r)
             printf("pi_euler() terms = %d\n", pi_euler_terms());
         if (b)
