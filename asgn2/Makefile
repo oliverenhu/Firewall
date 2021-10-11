@@ -27,7 +27,7 @@ newton.o: newton.c
 	$(CC) $(CFLAGS) -c newton.c	
 	
 clean:
-	rm -f mathlib-test mathlib-test.o
+	rm -f mathlib-test *.o
 
 format:
 	clang-format -i -style=file *.[ch]
