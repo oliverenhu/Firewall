@@ -8,6 +8,7 @@ double pi_bbp(){
         double pi=(47.0/15.0);
   	double pow=1;
         double base;
+	bbpterms=1;
         for(int k=1;EPSILON<error;k+=1) {
        		for(int i = 1;i<=k;i+=1){
                 pow*=(1.000/(16.000));
@@ -23,11 +24,11 @@ double pi_bbp(){
        bbpterms+=1;
     }
 
-    printf("%f",pi);
+    
     return pi;
     }
 int pi_bbp_terms(){
-	printf("%d",bbpterms);
+	
 	return bbpterms;
 
 

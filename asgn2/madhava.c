@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "mathlib.h"
 
+int terms =1;
 double pi_madhava(){
 	double error =1;
 	double prepi;
 	double pi=1;
 	double pow=1;
+	terms=1;
 	for(int k=1;EPSILON<error;k+=1){
 		for(int i=1;i<=k;i+=1){
 			pow*=(1.0/-3.0);
@@ -19,8 +21,13 @@ double pi_madhava(){
                 error=-1*prepi;
             	}
             	pow=1;
+		terms+=1;
 	}
 	pi=sqrt_newton(12)*pi;
-	printf("%.15f",pi);
-	return 0;
+	
+	return pi;
+}
+int pi_madhava_terms(){
+
+	return terms;
 }
