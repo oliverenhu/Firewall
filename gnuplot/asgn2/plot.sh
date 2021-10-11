@@ -2,7 +2,7 @@
 
 make clean && make
 
-./mathlib-test -a| awk -F, '{
+./mathlib-test -e| awk -F, '{
 	split($1,computed, " ");
 	split(computed[1], x, "[()]")
     	split($2, library, " ");
