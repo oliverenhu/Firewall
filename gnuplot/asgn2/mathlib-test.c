@@ -61,8 +61,8 @@ int main(int argc, char **argv) {
         if (s && b)
             printf("pi_bbp() terms = %d\n", pi_bbp_terms());
         if (m)
-            printf("pi_madhava() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_madhava(), M_PI,
-                fabs(pi_madhava() - M_PI));
+           
+        pi_madhava();
         if (s && m)
             printf("pi_madhava() terms = %d\n", pi_madhava_terms());
         if (v)
