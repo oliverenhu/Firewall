@@ -68,14 +68,9 @@ int main(int argc, char **argv) {
             pi_viete();
         if (s && v)
             printf("pi_viete() terms = %d\n", pi_viete_factors());
-        if (n) {
-            for (double i = 0.000000; i < 10; i += 0.1) {
-                printf("sqrt_newton(%.6f) = %.15f, sqrt(%.6f)= %.15f, diff = %.15f\n", i,
-                    sqrt_newton(i), i, sqrt(i), fabs(sqrt_newton(i) - sqrt(i)));
-                if (s)
-                    printf("sqrt_newton() terms = %d\n", sqrt_newton_iters());
-            }
-        }
-    }
+        if (n) 
+            sqrt_newton(10);
+                    }
+    
     return 0;
 }
