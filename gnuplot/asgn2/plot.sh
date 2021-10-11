@@ -17,9 +17,9 @@ set key outside
 set zeroaxis
 
 set output "Euler.pdf"
-set title "e() vs. M_E()"
-plot "/tmp/computed.dat" with linespoints title "e()", \
-    "/tmp/library.dat" with linespoints title "M_E()"
+set title "pi_euler() vs. M_PI()"
+plot "/tmp/computed.dat" with linespoints title "pi_euler()", \
+    "/tmp/library.dat" with linespoints title "M_PI()"
 EOF
 echo "done."
 
