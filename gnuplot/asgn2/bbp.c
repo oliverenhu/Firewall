@@ -1,5 +1,6 @@
 #include "mathlib.h"
 
+#include <math.h>
 #include <stdio.h>
 int bbpterms = 1;
 double pi_bbp() {
@@ -24,6 +25,9 @@ double pi_bbp() {
 
         pow = 1;
         bbpterms += 1;
+	printf("pi_bbp() = %.15f, M_PI = %.15f, diff = %.15f\n", pi, M_PI,
+                fabs(pi - M_PI));
+
     }
 
     return pi;
