@@ -47,37 +47,30 @@ int main(int argc, char **argv) {
                " Print verbose statistics.\n  -h   Display program synopsis and usage.\n");
     else {
         if (et)
-            printf("e() = %.15f, M_E = %.15f, diff = %.15f\n", e(), M_E, fabs(e() - M_E));
+            e();
         if (s && et)
             printf("e() terms = %d\n", e_terms());
         if (r)
-            printf("pi_euler() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_euler(), M_PI,
-                fabs(pi_euler() - M_PI));
+           
+            pi_euler();
         if (s && r)
             printf("pi_euler() terms = %d\n", pi_euler_terms());
         if (b)
-            printf("pi_bbp() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_bbp(), M_PI,
-                fabs(pi_bbp() - M_PI));
+            pi_bbp();
         if (s && b)
             printf("pi_bbp() terms = %d\n", pi_bbp_terms());
         if (m)
-            printf("pi_madhava() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_madhava(), M_PI,
-                fabs(pi_madhava() - M_PI));
+           
+        pi_madhava();
         if (s && m)
             printf("pi_madhava() terms = %d\n", pi_madhava_terms());
         if (v)
-            printf("pi_viete() = %.15f, M_PI = %.15f, diff = %.15f\n", pi_viete(), M_PI,
-                fabs(pi_viete() - M_PI));
+            pi_viete();
         if (s && v)
             printf("pi_viete() terms = %d\n", pi_viete_factors());
-        if (n) {
-            for (double i = 0.000000; i < 10; i += 0.1) {
-                printf("sqrt_newton(%.6f) = %.15f, sqrt(%.6f)= %.15f, diff = %.15f\n", i,
-                    sqrt_newton(i), i, sqrt(i), fabs(sqrt_newton(i) - sqrt(i)));
-                if (s)
-                    printf("sqrt_newton() terms = %d\n", sqrt_newton_iters());
-            }
-        }
-    }
+        if (n) 
+            sqrt_newton(10);
+                    }
+    
     return 0;
 }

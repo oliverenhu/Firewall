@@ -1,5 +1,5 @@
 #include "mathlib.h"
-
+#include <math.h>
 #include <stdio.h>
 
 int eulerterms = 0;
@@ -15,8 +15,13 @@ double pi_euler() {
         pi += pow;
         error = pi - prepi;
         eulerterms += 1;
+	int n=k;
+	if(n%10000==0){
+	double pie = sqrt_newton(pi * 6.0);
+	printf("pi_euler() = %.15f, M_PI = %.15f, diff = %.15f\n", pie, M_PI,fabs(pie - M_PI));
+	}
     }
-    pi = sqrt_newton(pi * 6.0);
+    
 
     return pi;
 }

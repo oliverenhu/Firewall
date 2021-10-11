@@ -1,7 +1,6 @@
 #include "mathlib.h"
-
 #include <stdio.h>
-
+#include <math.h>
 int terms = 1;
 double pi_madhava() {
     double error = 1;
@@ -22,9 +21,12 @@ double pi_madhava() {
         }
         pow = 1;
         terms += 1;
-    }
-    pi = sqrt_newton(12) * pi;
+        double pie = sqrt_newton(12) * pi;
+	printf("pi_madhava() = %.15f, M_PI = %.15f, diff = %.15f\n", pie, M_PI,
+                fabs(pie - M_PI));
 
+    }
+   
     return pi;
 }
 int pi_madhava_terms() {
