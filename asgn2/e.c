@@ -1,23 +1,23 @@
 #include "mathlib.h"
 
 #include <stdio.h>
-int term = 1;
+int term = 1; //allows for the term to be counted
 
 double e() {
-    double error = 1;
-    double e = 1;
-    double preterm = 1;
-    double pree;
-    term = 1;
+    double error = 1; //initializes error as 1 before it is overwritten in do-while loop
+    double e = 1; //declared with 1 as base term of e
+    double preterm = 1; //declared as base term of e mean to compare terms
+    double pree; //declared as pree to be the previous term of e
+    term = 1; //allows for term to be reinitialized
     do {
-        pree = e;
+        pree = e; //sets pree to e
 
-        e += 1 / (term * preterm);
+        e += 1 / (term * preterm); //simulates a factorial and adds it to e as a summation
 
-        preterm = term * preterm;
+        preterm = term * preterm; //factorial is saved in preterm
 
-        term += 1;
-        error = e - pree;
+        term += 1; term // term plus 1
+        error = e - pree;// error is caculated and compared to EPSILON in while loop
 
     } while (error > EPSILON);
 
