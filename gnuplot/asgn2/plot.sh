@@ -2,7 +2,7 @@
 
 make clean && make
 
-./mathlib-test -e| awk -F, '{
+./mathlib-test -r|awk -F, '{
 	split($1,computed, " ");
 	split(computed[1], x, "[()]")
     	split($2, library, " ");
@@ -16,7 +16,7 @@ set terminal pdf
 set key outside
 set zeroaxis
 
-set output "comparison.pdf"
+set output "Euler.pdf"
 set title "e() vs. M_E()"
 plot "/tmp/computed.dat" with linespoints title "e()", \
     "/tmp/library.dat" with linespoints title "M_E()"
