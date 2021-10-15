@@ -5,9 +5,9 @@ LFLAGS= -lm
 	 
 
 sorting: sorting.o 
-	$(CC) -o sorting (LFLAGS)
+	$(CC) -o sorting sorting.o
 
-sorting.o: sorting.c stat.h set.h heap.h insert.h quick.h shell.h
+sorting.o: sorting.c set.h heap.h insert.h quick.h shell.h
 	$(CC) $(CFLAGS) -c sorting.c
 
 clean:
