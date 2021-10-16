@@ -47,7 +47,7 @@ int main(int argc, char **argv){
                         break;
  			
 			case 'r':
-			seed=mask && atoi(optarg);
+			seed=atoi(optarg);
 			
                         break;
  			
@@ -63,24 +63,40 @@ int main(int argc, char **argv){
                         break;
 		}
 	}
+	
+
 	uint32_t A[size];
 	srandom(seed);
 	for(uint32_t x =0;x<size;x +=1){
-		A[x]=random();
+		A[x]=mask&random();
+	 	
 	}
-  	for (Sorts i = HEAP;i < QUICK; i+=1){
+	
+  	for (Sorts i = HEAP;i < QUICK+1; i+=1){
 		if(member_set(i,command)){
+			printf("%d\n",i);
 			Stats *stats=NULL;
 			set_sort(i,stats,A,size,elements);
+			
 		}
+		
 	}	
 	return 0;
 
 }	
 
 void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
-	printf("%d",i);
-		insertion_sort(stats,A,size);	
+	if(i==2){	
+		stats=malloc(sizeof *stats);	
+		insertion_sort(stats,A,size);
+		free(stats);		
 		printf("%s, %d elements,", names[i],elements);
+		for(uint32_t x =0;x<size;x +=1){
+                printf("%d  ",A[x]);
+		}
 		
-	}
+		if((stats= malloc(sizeof *stats))!=NULL)
+		printf(" %lu",stats->moves);
+		}
+	}	
+	
