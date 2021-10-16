@@ -4,7 +4,7 @@ LFLAGS= -lm
 
 	 
 
-sorting: sorting.o insert.o stats.o
+sorting: sorting.o insert.o 
 	$(CC) -o sorting sorting.o insert.o stats.o $(LFLAGS)
 
 sorting.o: sorting.c set.h heap.h insert.h quick.h shell.h
@@ -13,7 +13,8 @@ sorting.o: sorting.c set.h heap.h insert.h quick.h shell.h
 insert.o: insert.c 
 	$(CC) $(CFLAGS) -c insert.c
 stats.o: stats.c stats.h
-	$(CC) $(CFLAGS) -c stats.c
+	$(CC) $(CFLAGS) -c stats.o
+
 clean:
 	rm -f sorting *.o
 
