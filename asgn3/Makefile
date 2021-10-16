@@ -4,8 +4,8 @@ LFLAGS= -lm
 
 	 
 
-sorting: sorting.o insert.o stats.o shell.o
-	$(CC) -o sorting sorting.o insert.o stats.o shell.o $(LFLAGS)
+sorting: sorting.o insert.o stats.o shell.o heap.o
+	$(CC) -o sorting sorting.o insert.o stats.o shell.o heap.o $(LFLAGS)
 
 sorting.o: sorting.c set.h heap.h insert.h quick.h shell.h
 	$(CC) $(CFLAGS) -c sorting.c
@@ -13,12 +13,16 @@ sorting.o: sorting.c set.h heap.h insert.h quick.h shell.h
 insert.o: insert.c stats.h  
 	$(CC) $(CFLAGS) -c insert.c
 
+heap.o: heap.c stats.h
+	$(CC) $(CFLAGS) -c heap.c
+
 shell.o: shell.c stats.h
 	$(CC) $(CFLAGS) -c shell.c
 
 
 stats.o: stats.c stats.h
-	$(CC) $(CFLAGS) -c stats.o
+	$(CC) $(CFLAGS) -c stats.c
+
 test: test.o 
 	$(CC) -o test test.o 
 

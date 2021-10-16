@@ -88,9 +88,9 @@ int main(int argc, char **argv){
 void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
 	
 	stats=malloc(sizeof *stats);	
-	//if(i==0){
-	//	heap_sort(stats,A,size);
-	//}
+	if(i==0){
+		heap_sort(stats,A,size);
+	}
 	if(i==1){
 		shell_sort(stats,A,size);
 	} 
