@@ -12,9 +12,10 @@
 #define OPTIONS "aeisqr:n:p:h:"
 typedef enum { HEAP , SHELL , INSERTION , QUICK } Sorts;
 const char *names[] = {"Heap Sort","Shell Sort","Insertion Sort","Quick Sort"};
-void set_sort(Sorts i, Stats *stats,uint32_t *A, uint32_t size, int elements);
+void set_sort(Sorts i, Stats *stats,uint32_t *A, uint32_t size, uint32_t elements);
 
 int main(int argc, char **argv){
+	int p=0;
 	int opt = 0;
 	uint64_t seed =  13371453;
         uint32_t size = 100;
@@ -22,7 +23,9 @@ int main(int argc, char **argv){
 	uint64_t mask = 0x3FFFFFFF;
 	Set command = empty_set();
 	while((opt =getopt(argc, argv , OPTIONS))!=-1){
+		
 		switch(opt){
+			
 			case 'a':
 		        command = insert_set(HEAP, command);
 			command = insert_set(INSERTION, command);
@@ -53,18 +56,22 @@ int main(int argc, char **argv){
  			
 			case 'n':
 			size=atoi(optarg);
+
                         break;
  			
 			case 'p':
-			elements=atoi(optarg);	
+			elements=atoi(optarg);
+			p=1;	
                         break;
  			
-			case 'h':
-                        break;
+		
+                        
 		}
 	}
 	
-
+	if(p!=1){
+		elements=size;
+	}
 	uint32_t A[size];
 	srandom(seed);
 	for(uint32_t x =0;x<size;x +=1){
@@ -85,7 +92,7 @@ int main(int argc, char **argv){
 
 }	
 
-void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
+void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, uint32_t elements){
 	
 	stats=malloc(sizeof *stats);	
 	if(i==0){
@@ -100,10 +107,10 @@ void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
 	if(i==3){
 		quick_sort(stats,A,size);
 	}
-	printf("%s, %d elements, %lu moves, %lu compares\n", names[i],elements,stats->moves,stats->compares);
+	printf("%s, %d elements, %lu moves, %lu compares\n", names[i],size,stats->moves,stats->compares);
 	free(stats);
-	for(uint32_t x =0;x<size;x +=1){
-		if((x+1)%5==0&&x!=0){
+	for(uint32_t x =0;x<elements;x +=1){
+		if(((x+1)%5==0&&x!=0)||x==elements-1){
 			printf("%13" PRIu32"\n",A[x]);
 	}	
 		else{
