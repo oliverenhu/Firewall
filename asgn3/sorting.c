@@ -86,21 +86,29 @@ int main(int argc, char **argv){
 }	
 
 void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
-	if(i==2){	
-		stats=malloc(sizeof *stats);	
+	
+	stats=malloc(sizeof *stats);	
+	//if(i==0){
+	//	heap_sort(stats,A,size);
+	//}
+	if(i==1){
+		shell_sort(stats,A,size);
+	} 
+	if(i==2){
 		insertion_sort(stats,A,size);
-		printf("%s, %d elements, %lu moves, %lu compares\n", names[i],elements,stats->moves,stats->compares);
-                free(stats);
-		for(uint32_t x =0;x<size;x +=1){
+	}
+	printf("%s, %d elements, %lu moves, %lu compares\n", names[i],elements,stats->moves,stats->compares);
+	free(stats);
+	for(uint32_t x =0;x<size;x +=1){
 		if((x+1)%5==0&&x!=0){
-		printf("%13" PRIu32"\n",A[x]);
-		}	
-		else{
-                printf("%13" PRIu32,A[x]);
-		}
-		}
-		
-		
-		}
+			printf("%13" PRIu32"\n",A[x]);
 	}	
+		else{
+               		printf("%13" PRIu32,A[x]);
+		}
+	}
+		
+		
+}
+		
 	
