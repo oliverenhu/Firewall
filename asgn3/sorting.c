@@ -74,7 +74,7 @@ int main(int argc, char **argv){
 	
   	for (Sorts i = HEAP;i < QUICK+1; i+=1){
 		if(member_set(i,command)){
-			printf("%d\n",i);
+
 			Stats *stats=NULL;
 			set_sort(i,stats,A,size,elements);
 			
@@ -89,14 +89,18 @@ void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
 	if(i==2){	
 		stats=malloc(sizeof *stats);	
 		insertion_sort(stats,A,size);
-		free(stats);		
-		printf("%s, %d elements,", names[i],elements);
+		printf("%s, %d elements, %lu moves, %lu compares\n", names[i],elements,stats->moves,stats->compares);
+                free(stats);
 		for(uint32_t x =0;x<size;x +=1){
-                printf("%d  ",A[x]);
+		if((x+1)%5==0&&x!=0){
+		printf("%13" PRIu32"\n",A[x]);
+		}	
+		else{
+                printf("%13" PRIu32,A[x]);
+		}
 		}
 		
-		if((stats= malloc(sizeof *stats))!=NULL)
-		printf(" %lu",stats->moves);
+		
 		}
 	}	
 	
