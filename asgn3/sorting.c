@@ -97,6 +97,9 @@ void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
 	if(i==2){
 		insertion_sort(stats,A,size);
 	}
+	if(i==3){
+		quick_sort(stats,A,size);
+	}
 	printf("%s, %d elements, %lu moves, %lu compares\n", names[i],elements,stats->moves,stats->compares);
 	free(stats);
 	for(uint32_t x =0;x<size;x +=1){
