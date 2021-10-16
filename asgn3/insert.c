@@ -12,10 +12,12 @@ void insertion_sort(Stats *stats, uint32_t *A, uint32_t n){
 			A[j] =move(stats,A[j-1]);
 			j -= 1;
 		}
-	//	free(stats);
-		A[j] = temp;
+
+		A[j] = move(stats,temp);
 		
-	}
+		}
+		
+		printf("%lu",stats->moves);
 	
 
 
