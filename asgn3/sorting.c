@@ -12,6 +12,7 @@
 #define OPTIONS "aeisqr:n:p:h:"
 typedef enum { HEAP , SHELL , INSERTION , QUICK } Sorts;
 const char *names[] = {"Heap Sort","Shell Sort","Insertion Sort","Quick Sort"};
+void set_sort(Sorts i, Stats *stats,uint32_t *A, uint32_t size, int elements);
 
 int main(int argc, char **argv){
 	int opt = 0;
@@ -62,16 +63,24 @@ int main(int argc, char **argv){
                         break;
 		}
 	}
+	uint32_t A[size];
 	srandom(seed);
-	
+	for(uint32_t x =0;x<size;x +=1){
+		A[x]=random();
+	}
+  	for (Sorts i = HEAP;i < QUICK; i+=1){
+		if(member_set(i,command)){
+			Stats *stats=NULL;
+			set_sort(i,stats,A,size,elements);
+		}
+	}	
 	return 0;
 
+}	
 
-
-
-
-
-
-
-}
-
+void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, int elements){
+	printf("%d",i);
+		insertion_sort(stats,A,size);	
+		printf("%s, %d elements,", names[i],elements);
+		
+	}
