@@ -61,6 +61,7 @@ int main(int argc, char **argv) {
         }
     }
 
+
     if ((p != 1 && size <= 100) || elements > size) {
         elements = size;
     }
@@ -84,11 +85,17 @@ int main(int argc, char **argv) {
             }
 
             set_sort(i, stats, A, size, elements);
-            free(A);
-        }
-    }
+            if(size>2){
 
+	    free(A);
+	    }
+        }
+	
+    }
+    
     free(stats);
+    
+
     return 0;
 }
 
