@@ -60,7 +60,9 @@ int main(int argc, char **argv){
                         break;
  			
 			case 'p':
-			elements=atoi(optarg);
+			if(atoi(optarg)<=100){
+				elements=atoi(optarg);
+			}
 			p=1;	
                         break;
  			
@@ -69,7 +71,7 @@ int main(int argc, char **argv){
 		}
 	}
 	
-	if(p!=1){
+	if(p!=1&&size<=100){
 		elements=size;
 	}
 	uint32_t A[size];
