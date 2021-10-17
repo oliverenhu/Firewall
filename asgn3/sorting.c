@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
     if ((p != 1 && size <= 100) || elements > size) {
         elements = size;
     }
-    uint32_t *A = (uint32_t *) calloc(size, sizeof(uint32_t));
+    uint32_t *A =  (uint32_t *)calloc(size,sizeof(uint32_t));
     Stats *stats = malloc(sizeof(stats));
 
     //	srandom(seed);
@@ -85,10 +85,10 @@ int main(int argc, char **argv) {
             }
 
             set_sort(i, stats, A, size, elements);
-            if(size>2){
+           // if(size>2&&size<258){
 
-	    free(A);
-	    }
+	   
+	   // }
         }
 	
     }
