@@ -19,7 +19,7 @@ int main(int argc, char **argv){
 	int opt = 0;
 	uint64_t seed =  13371453;
         uint32_t size = 100;
-	int elements = 100 ;
+	uint32_t elements = 100 ;
 	uint64_t mask = 0x3FFFFFFF;
 	Set command = empty_set();
 	while((opt =getopt(argc, argv , OPTIONS))!=-1){
@@ -63,6 +63,7 @@ int main(int argc, char **argv){
 			if(atoi(optarg)<=100){
 				elements=atoi(optarg);
 			}
+			
 			p=1;	
                         break;
  			
@@ -71,7 +72,7 @@ int main(int argc, char **argv){
 		}
 	}
 	
-	if(p!=1&&size<=100){
+	if((p!=1&&size<=100)||elements>size){
 		elements=size;
 	}
 	uint32_t A[size];
