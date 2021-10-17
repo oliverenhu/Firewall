@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
             }
 
             set_sort(i, stats, A, size, elements);
-            if(size>2){
+            if(size>2&&size<259){
 
 	    free(A);
 	    }
