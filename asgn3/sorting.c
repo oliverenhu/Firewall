@@ -55,8 +55,11 @@ int main(int argc, char **argv){
                         break;
  			
 			case 'n':
+			if(atoi(optarg)>=0){
+			
+			
 			size=atoi(optarg);
-
+			}
                         break;
  			
 			case 'p':
