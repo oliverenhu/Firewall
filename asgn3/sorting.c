@@ -22,6 +22,7 @@ int main(int argc, char **argv){
 	uint32_t elements = 100 ;
 	uint64_t mask = 0x3FFFFFFF;
 	Set command = empty_set();
+	
 	while((opt =getopt(argc, argv , OPTIONS))!=-1){
 		
 		switch(opt){
@@ -55,9 +56,7 @@ int main(int argc, char **argv){
                         break;
  			
 			case 'n':
-			if(atoi(optarg)>=0){
-			
-			
+			if(atoi(optarg)>=0){	
 			size=atoi(optarg);
 			}
                         break;
@@ -78,29 +77,43 @@ int main(int argc, char **argv){
 	if((p!=1&&size<=100)||elements>size){
 		elements=size;
 	}
-	uint32_t A[size];
-	srandom(seed);
-	for(uint32_t x =0;x<size;x +=1){
-		A[x]=mask&random();
+	uint32_t *A= (uint32_t *) calloc(size, sizeof(uint32_t));
+	Stats *stats=malloc(sizeof(stats));
+
+//	srandom(seed);
+//	for(uint32_t x =0;x<size;x +=1){
+
+//		A[x]=mask&random();
 	 	
-	}
-	
+//	}
+		
   	for (Sorts i = HEAP;i < QUICK+1; i+=1){
 		if(member_set(i,command)){
+	//		Stats stats;
+	 		srandom(seed);
+		        for(uint32_t x =0;x<size;x +=1){
 
-			Stats *stats=NULL;
+            			  A[x]=mask&random();
+
+     			 }
+
 			set_sort(i,stats,A,size,elements);
-			
+			free(A);
+				
 		}
-		
+			
 	}	
+	
+	
 	return 0;
 
 }	
 
-void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, uint32_t elements){
+void set_sort(Sorts i,Stats *stats,uint32_t *A, uint32_t size, uint32_t elements){
+        
+
 	
-	stats=malloc(sizeof *stats);	
+//	stats=malloc(sizeof *stats);	
 	if(i==0){
 		heap_sort(stats,A,size);
 	}
@@ -113,8 +126,10 @@ void set_sort(Sorts i,Stats *stats, uint32_t *A, uint32_t size, uint32_t element
 	if(i==3){
 		quick_sort(stats,A,size);
 	}
+	
 	printf("%s, %d elements, %lu moves, %lu compares\n", names[i],size,stats->moves,stats->compares);
-	free(stats);
+	
+	reset(stats);	
 	for(uint32_t x =0;x<elements;x +=1){
 		if(((x+1)%5==0&&x!=0)||x==elements-1){
 			printf("%13" PRIu32"\n",A[x]);
