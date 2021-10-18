@@ -1,4 +1,4 @@
-#include "insert.h"
+#include "quick.h"
 
 #include <math.h>
 #include <stdio.h>
