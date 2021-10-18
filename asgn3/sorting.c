@@ -27,7 +27,6 @@ int main(int argc, char **argv) {
     while ((opt = getopt(argc, argv, OPTIONS)) != -1) {
 
         switch (opt) {
-
         case 'a':
             command = insert_set(HEAP, command);
             command = insert_set(INSERTION, command);
@@ -61,23 +60,14 @@ int main(int argc, char **argv) {
         }
     }
 
-
     if ((p != 1 && size <= 100) || elements > size) {
         elements = size;
     }
-    uint32_t *A =  (uint32_t *)calloc(size,sizeof(uint32_t));
+    uint32_t *A = (uint32_t *) calloc(size, sizeof(uint32_t));
     Stats *stats = malloc(sizeof(stats));
-
-    //	srandom(seed);
-    //	for(uint32_t x =0;x<size;x +=1){
-
-    //		A[x]=mask&random();
-
-    //	}
 
     for (Sorts i = HEAP; i < QUICK + 1; i += 1) {
         if (member_set(i, command)) {
-            //		Stats stats;
             srandom(seed);
             for (uint32_t x = 0; x < size; x += 1) {
 
@@ -85,23 +75,16 @@ int main(int argc, char **argv) {
             }
 
             set_sort(i, stats, A, size, elements);
-           // if(size>2&&size<258){
-
-	   
-	   // }
         }
-	
     }
-    free(A);   
+    free(A);
     free(stats);
-    
 
     return 0;
 }
 
 void set_sort(Sorts i, Stats *stats, uint32_t *A, uint32_t size, uint32_t elements) {
 
-    //	stats=malloc(sizeof *stats);
     if (i == 0) {
         heap_sort(stats, A, size);
     }
