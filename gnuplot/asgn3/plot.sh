@@ -24,18 +24,18 @@ set size ratio 0.75
 set output "moves.pdf"
 set title "Moves Performed"
 set ylabel "Moves"
-plot "/tmp/heap.dat" using 1:2 with linespoint title "Heap", \
-     "/tmp/insertion.dat" using 1:2 with linespoint title "Insertion", \
-    "/tmp/quick.dat" using 1:2 with linespoint title "Quick", \
-     "/tmp/shell.dat" using 1:2 with linespoint  title "Shell"
+plot "/tmp/heap.dat" using 1:2 with lines linestyle 1 title "Heap", \
+     "/tmp/insertion.dat" using 1:2 with lines linestyle 2 title "Insertion", \
+    "/tmp/quick.dat" using 1:2 with lines linestyle 3 title "Quick", \
+     "/tmp/shell.dat" using 1:2 with lines linestyle 4 title "Shell"
 
 set output "compares.pdf"
 set title "Compares Performed"
 set ylabel "Compares"
-plot "/tmp/heap.dat" using 1:3 with linespoint title "Heap", \
-     "/tmp/insertion.dat" using 1:3 with linespoint linestyle 2 title "Insertion", \
-    "/tmp/quick.dat" using 1:3 with linespoint title "Quick", \
-     "/tmp/shell.dat" using 1:3 with linespoint title "Shell"
+plot "/tmp/heap.dat" using 1:3 with lines linestyle 1 title "Heap", \
+     "/tmp/insertion.dat" using 1:3 with lines linestyle 2 title "Insertion", \
+    "/tmp/quick.dat" using 1:3 with lines linestyle 3 title "Quick", \
+     "/tmp/shell.dat" using 1:3 with lines linestyle 4 title "Shell"
 
 
 EOF
