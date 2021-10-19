@@ -2,7 +2,7 @@
 
 rm -f /tmp/{heap,insertion,quick,shell}.dat
 
-for i in {1..100}; do
+for i in {1..50}; do
     awk -F, '{
 	
         split($1, name, " ");
