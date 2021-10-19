@@ -4,7 +4,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-int max_child(Stats *stats, uint32_t *A, int first, int last) {
+int max_child(
+    Stats *stats, uint32_t *A, int first, int last) { //finds max value amongst the childrem
     int left = 2 * first;
     int right = left + 1;
     if (right <= last && cmp(stats, A[right - 1], A[left - 1]) == 1) {
@@ -12,7 +13,8 @@ int max_child(Stats *stats, uint32_t *A, int first, int last) {
     }
     return left;
 }
-void fix_heap(Stats *stats, uint32_t *A, int first, int last) {
+void fix_heap(Stats *stats, uint32_t *A, int first,
+    int last) { //compares the values of max child and parent and will swap if child is greater
     bool found = false;
     int mother = first;
     int great = max_child(stats, A, mother, last);
@@ -27,12 +29,16 @@ void fix_heap(Stats *stats, uint32_t *A, int first, int last) {
         }
     }
 }
-void build_heap(Stats *stats, uint32_t *A, int first, int last) {
+void build_heap(Stats *stats, uint32_t *A, int first,
+    int last) { //this function build all the heaps from top down to find the max
+
     for (int father = floor(last / 2); father > first - 1; father -= 1) {
         fix_heap(stats, A, father, last);
     }
 }
-void heap_sort(Stats *stats, uint32_t *A, uint32_t n) {
+void heap_sort(Stats *stats, uint32_t *A,
+    uint32_t
+        n) { //takes all the max values of heaps and progressively puts them in order base of the max value then exclude the max fromt eh rest of the heap
     int first = 1;
     int last = n;
     build_heap(stats, A, first, last);
