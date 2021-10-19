@@ -11,7 +11,7 @@ for i in {1..100}; do
 	split($4, compares, " ");
 	file = sprintf("/tmp/%s.dat", tolower(name[1]));
 	printf ("%d %d %d\n", elements[1], moves[1], compares[1]) >> file
-}' <(./sorting -a -n $(( 10 * i)) -p 0)
+}' <(./sorting -a -n $(( 5 * i)) -p 0)
 
 done
 gnuplot <<EOF
