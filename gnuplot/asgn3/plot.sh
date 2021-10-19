@@ -1,25 +1,43 @@
 #!/usr/bin/env bash
 
-make clean && make
+rm -f /tmp/{heap,insertion,quick,shell}.dat
 
-./sorting -a|awk -F, '{
-	split($1,computed, " ");
-	split(computed[1], x, " ")
-    	split($2, library, " ");
-    	print x[2], computed[3] > "/tmp/computed.dat"
-    	print x[2], library[3] > "/tmp/library.dat"
-}'
+for i in {1..50}; do
+    awk -F, '{
+	
+        split($1, name, " ");
+        split($2, elements, " ");
+        split($3, moves, " ");
+	split($4, compares, " ");
+	file = sprintf("/tmp/%s.dat", tolower(name[1]));
+	printf ("%d %d %d\n", elements[1], moves[1], compares[1]) >> file
+}' <(./sorting -a -n $(( 2 * i)) -p 0)
 
-echo -n "Plotting... "
+done
 gnuplot <<EOF
 set terminal pdf
 set key outside
-set zeroaxis
+set bmargin 4
+set xlabel "Elements"
+set size ratio 0.75
 
-set output "Sorting.pdf"
-set title "Elements vs. Moves"
-plot "/tmp/computed.dat" with lines linestyle 1 title "Elements", \
-    "/tmp/library.dat" with linespoints title "Moves"
+set output "moves.pdf"
+set title "Moves Performed"
+set ylabel "Moves"
+plot "/tmp/heap.dat" using 1:2 with lines linestyle 1 title "Heap", \
+     "/tmp/insertion.dat" using 1:2 with lines linestyle 2 title "Insertion", \
+    "/tmp/quick.dat" using 1:2 with lines linestyle 3 title "Quick", \
+     "/tmp/shell.dat" using 1:2 with lines linestyle 4 title "Shell"
+
+set output "compares.pdf"
+set title "Compares Performed"
+set ylabel "Compares"
+plot "/tmp/heap.dat" using 1:3 with lines linestyle 1 title "Heap", \
+     "/tmp/insertion.dat" using 1:3 with lines linestyle 2 title "Insertion", \
+    "/tmp/quick.dat" using 1:3 with lines linestyle 3 title "Quick", \
+     "/tmp/shell.dat" using 1:3 with lines linestyle 4 title "Shell"
+
+
 EOF
 echo "done."
 
