@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
 		switch (opt) {
 	       	case 'i':
 			printf("%s input file\n", optarg);
-	       		infile = fopen(optarf, "r");
+	       		infile = fopen(optarg, "r");
 			break;
 		case 'o':
 			printf("%s output file\n", optarg);
@@ -21,8 +21,8 @@ int main(int argc, char **argv) {
 	}
 	
 	char buf[1024];
-	fgets(buf , 1024 , infile);
-	buf[strlen(buf) -1] = '\0';
+	fgets(buf,1024 ,infile);
+//	buf[strlen(buf)-1] = '\0';
 	fputs(buf, outfile);
 	
 	return 0;
