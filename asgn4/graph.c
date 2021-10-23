@@ -25,7 +25,7 @@ uint32_t graph_vertices(Graph *G){
 	return G->vertices;
 }
 bool graph_add_edge(Graph *G, uint32_t i, uint32_t j, uint32_t k){
-	if(i>VERTICES&&j>VERTICES){
+	if(i>=START_VERTEX && i<=VERTICES&&j<=VERTICES && j>=START_VERTEX){
 	G->matrix[i][j]=k;
 	if(G->undirected==true){
 	G->matrix[j][i]=k;
@@ -36,7 +36,7 @@ bool graph_add_edge(Graph *G, uint32_t i, uint32_t j, uint32_t k){
 }	
 
 bool graph_has_edge(Graph *G, uint32_t i, uint32_t j){
-	if(i>VERTICES&&j>VERTICES&&G->matrix[i][j]>0){
+	if(i<=VERTICES&&j<=VERTICES&&G->matrix[i][j]>0){
 		return true;
 	}
 	return false;	
