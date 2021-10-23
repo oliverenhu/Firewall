@@ -29,6 +29,7 @@ bool path_push_vertex(Path *p, uint32_t v, Graph *G){
 	if(!stack_full(p->vertices)&&v<=VERTICES){	//if stack p vertices is not full
 	if(stack_empty(p->vertices)){		//
 		p->length+=graph_edge_weight(G,0,v);
+		return true;
 	}
 	uint32_t *before=NULL;
 	if(stack_peek(p->vertices,before))
