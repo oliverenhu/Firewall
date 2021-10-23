@@ -7,8 +7,8 @@ struct Graph{
 	uint32_t vertices ; // Number of vertices .
         bool undirected ; // Undirected graph
         bool visited [ VERTICES ]; // vertices visited
-        uint32_t matrix [ VERTICES ][ VERTICES ];}; // Adjacency matrix .
-
+        uint32_t matrix [ VERTICES ][ VERTICES ]; // Adjacency matrix .
+};
 Graph *graph_create(uint32_t vertices, bool undirected){
 	Graph *G = ( Graph *) calloc (1 , sizeof ( Graph ) ) ;
 	G-> vertices = vertices ;
@@ -19,7 +19,7 @@ Graph *graph_create(uint32_t vertices, bool undirected){
 void graph_delete(Graph **G){
 	free (*G) ;
 	*G = NULL ;
-	return ;
+	return;
 }
 uint32_t graph_vertices(Graph *G){
 	return G->vertices;

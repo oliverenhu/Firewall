@@ -54,7 +54,7 @@ bool stack_pop(Stack *s, uint32_t *x){
 	if(!stack_empty(s)){
                 s->top-=1;
 		*x=s->items[s->top];
-		x=0;
+		s->items[s->top]=0;
                 return true;
         }
         return false;
