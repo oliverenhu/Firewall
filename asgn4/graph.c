@@ -11,7 +11,9 @@ struct Graph{
 };
 Graph *graph_create(uint32_t vertices, bool undirected){
 	Graph *G = ( Graph *) calloc (1 , sizeof ( Graph ) ) ;
+	if(vertices<=VERTICES){
 	G-> vertices = vertices ;
+	}
 	G-> undirected = undirected ;
 	return G;
 }
@@ -27,7 +29,7 @@ uint32_t graph_vertices(Graph *G){
 }
 
 bool graph_add_edge(Graph *G, uint32_t i, uint32_t j, uint32_t k){
-	if(i<=VERTICES&&j<=VERTICES){
+	if(i<=G->vertices&&j<=G->vertices){
 		G->matrix[i][j]=k;
 		if(G->undirected==true){
 			G->matrix[j][i]=k;
@@ -38,7 +40,7 @@ bool graph_add_edge(Graph *G, uint32_t i, uint32_t j, uint32_t k){
 }	
 
 bool graph_has_edge(Graph *G, uint32_t i, uint32_t j){
-	if(i<=VERTICES&&j<=VERTICES&&G->matrix[i][j]>0){
+	if(i<=G->vertices&&j<=G->vertices&&G->matrix[i][j]>0){
 		return true;
 	}
 	return false;	
