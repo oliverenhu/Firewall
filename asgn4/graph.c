@@ -17,22 +17,24 @@ Graph *graph_create(uint32_t vertices, bool undirected){
 }
 	
 void graph_delete(Graph **G){
-	free (*G) ;
-	*G = NULL ;
+	free (*G);
+	*G = NULL;
 	return;
 }
+
 uint32_t graph_vertices(Graph *G){
 	return G->vertices;
 }
+
 bool graph_add_edge(Graph *G, uint32_t i, uint32_t j, uint32_t k){
 	if(i<=VERTICES&&j<=VERTICES){
-	G->matrix[i][j]=k;
-	if(G->undirected==true){
-	G->matrix[j][i]=k;
-	}
-	return true;
+		G->matrix[i][j]=k;
+		if(G->undirected==true){
+			G->matrix[j][i]=k;
+		}
+		return false;
 	}	
-	return false;
+	return true;
 }	
 
 bool graph_has_edge(Graph *G, uint32_t i, uint32_t j){
@@ -41,6 +43,7 @@ bool graph_has_edge(Graph *G, uint32_t i, uint32_t j){
 	}
 	return false;	
 }
+
 uint32_t graph_edge_weight(Graph *G, uint32_t i, uint32_t j){
 	if(graph_has_edge(G ,i , j)&& G->matrix[i][j]!=0){
 		return G->matrix[i][j];		
@@ -60,11 +63,11 @@ void graph_mark_visited(Graph *G, uint32_t v){
 		G->visited[v]=true;	
 	}
 }
+
 void graph_mark_unvisited(Graph *G, uint32_t v){
 	if(v<VERTICES){
                 G->visited[v]=false;
         }
-	
 }
 
 void graph_print(Graph *G){
