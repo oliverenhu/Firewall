@@ -9,15 +9,15 @@ uint32_t length ; // The total length of the path .
 };
 
 Path *path_create(void){
-	Path *p=(Path *)malloc(sizeof(Path));
-	if(p){	
-		p->vertices=stack_create(VERTICES);
-		p->length=0;
+	Path *p=(Path *)malloc(sizeof(Path));  // dynamically allocates space for p
+	if(p){					//sets vertices to stack_create(VERTICES)
+		p->vertices=stack_create(VERTICES);	
+		p->length=0; 
 		
 	}
 	return p;
 }
-void path_delete(Path **p){
+void path_delete(Path **p){		//frees up the memory of p
 	if(*p && (*p)->vertices){
 		stack_delete(&(*p)->vertices);
 		free(*p);
@@ -26,8 +26,8 @@ void path_delete(Path **p){
 	return;	
 }
 bool path_push_vertex(Path *p, uint32_t v, Graph *G){
-	if(!stack_full(p->vertices)){
-	if(stack_empty(p->vertices)){
+	if(!stack_full(p->vertices)&&v<=VERTICES){	//if stack p vertices is not full
+	if(stack_empty(p->vertices)){		//
 		p->length+=graph_edge_weight(G,0,v);
 	}
 	uint32_t *before=NULL;
@@ -40,7 +40,7 @@ bool path_push_vertex(Path *p, uint32_t v, Graph *G){
 	return false;
 }
 bool path_pop_vertex(Path *p, uint32_t *v, Graph *G){
-	if(!stack_empty(p->vertices)){
+	if(!stack_empty(p->vertices)&&v<=VERTICES){
         stack_pop(p->vertices,v);
 	uint32_t *before=NULL;
         if(stack_peek(p->vertices,before))
@@ -60,7 +60,7 @@ uint32_t path_length(Path *p){
 	return (p->length);
 }
 void path_copy(Path *dst, Path *src){
-	(stack_copy(dst->vertices,src->vertices));
+	stack_copy(dst->vertices,src->vertices);
 }
 void path_print(Path *p, FILE *outfile, char *cities[]){
 	stack_print(p->vertices,outfile,cities);
