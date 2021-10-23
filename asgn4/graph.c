@@ -32,9 +32,9 @@ bool graph_add_edge(Graph *G, uint32_t i, uint32_t j, uint32_t k){
 		if(G->undirected==true){
 			G->matrix[j][i]=k;
 		}
-		return false;
+		return true;
 	}	
-	return true;
+	return false;
 }	
 
 bool graph_has_edge(Graph *G, uint32_t i, uint32_t j){
