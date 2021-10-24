@@ -72,11 +72,12 @@ void graph_mark_unvisited(Graph *G, uint32_t v){
         }
 }
 
+
 void graph_print(Graph *G){
-	for (uint32_t x=0;x<VERTICES;x+=1){
-		for (uint32_t y=0;x<VERTICES;x+=1){
+	 for (uint32_t x=0;x<VERTICES;x+=1){
+		for (uint32_t y=0;y<VERTICES;y+=1){
 		printf("%u  ",G->matrix[x][y]);
 		}
-		printf("\n");
+		printf("\n");	
 	}
 }

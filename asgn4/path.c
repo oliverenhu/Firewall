@@ -28,28 +28,36 @@ void path_delete(Path **p){		//frees up the memory of p
 bool path_push_vertex(Path *p, uint32_t v, Graph *G){
 	if(!stack_full(p->vertices)&&v<=VERTICES){	//if stack p vertices is not full
 	if(stack_empty(p->vertices)){		//
-		p->length+=graph_edge_weight(G,0,v);
-		return true;
+		 p->length+=graph_edge_weight(G,0,v);
+		
+		 return stack_push(p->vertices,v);
+		 
+		 
 	}
-	uint32_t *before=NULL;
+	uint32_t *before;
+	uint32_t  b=0;
+	before=&b;
 	if(stack_peek(p->vertices,before))
-	p->length+=graph_edge_weight(G,*before,v);
+	
+	p->length+=graph_edge_weight(G,b,v);
         if(stack_push(p->vertices,v))
-
+        
 	return true;
 	}
 	return false;
 }
 bool path_pop_vertex(Path *p, uint32_t *v, Graph *G){
+	if(!stack_empty(p->vertices)){
 	if(stack_pop(p->vertices,v)){
-	uint32_t *before=NULL;
+	uint32_t *before;
+	 uint32_t  b=0;
+        before=&b;
+
         if(stack_peek(p->vertices,before))
-        p->length-=graph_edge_weight(G,*before,*v);
-
-
+        p->length-=graph_edge_weight(G,b,*v);
 	return true;
 	}	
-	
+	}
 	return false;
 	}
 

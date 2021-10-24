@@ -67,6 +67,7 @@ bool stack_peek(Stack *s, uint32_t *x){
 		s->top-=1;
                 *x=s->items[s->top];
 		s->top+=1;
+
                 return true;
         }
         return false;
