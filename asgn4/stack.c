@@ -77,7 +77,9 @@ void stack_copy(Stack *dst, Stack *src){
 	for (uint32_t i=0;i<src->top;i+=1){
 		dst->items[i]=src->items[i];
 	}
+	
 	dst->top=src->top;
+	dst->capacity=src->capacity;
 }
 void stack_print(Stack *s, FILE *outfile, char *cities[]){
 	for ( uint32_t i = 0; i < s->top; i += 1) {
