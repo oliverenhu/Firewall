@@ -48,11 +48,12 @@ int main(int argc, char **argv) {
 		fgets(buf,1024 ,infile);
 		buf[strlen(buf)-1] = '\0';
 		cities[i]=strdup(buf);
-		
+				
 	}
-	for(int i=0;i<size;i+=1){
-		printf("%s ",cities[i]);
-       }
+
+	
+	
+	
 /*	
 	struct Graph *graph = graph_create(size,undirected);
 	struct Path *p= path_create();
@@ -64,7 +65,10 @@ int main(int argc, char **argv) {
         printf("Path: %s -> ",cities[0]);
         path_print(shortest,outfile,cities);
         printf("Path length: %d\n",path_length(shortest));
-*/
+*/	for(int i=0;i<size;i+=1){
+                free(cities[i]);
+        }
+
 	return 0;
 }
 /*
@@ -96,3 +100,4 @@ void dfs(Graph *graph,uint32_t v,Path *p,FILE *dfs,Path *shortest){
 
         }
 */
+	
