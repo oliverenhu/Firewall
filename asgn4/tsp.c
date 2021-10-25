@@ -8,27 +8,29 @@
 #include <string.h>
 #include <unistd.h>
 
+void out(FILE *outfile, int size, Path *shortest, char *cities[]);
 void dfs(Graph *graph, uint32_t v, Path *p, FILE *outfile, Path *shortest, char *cities[]);
 bool verbose = false;
 int recursive = 1;
 int main(int argc, char **argv) {
     FILE *infile = stdin;
     FILE *outfile = stdout;
-    int size;
+    int size = 0;
     int opt = 0;
     bool undirected = false;
     while ((opt = getopt(argc, argv, "i:o:uvh")) != -1) {
         switch (opt) {
-        case 'i':
-            printf("%s input file\n", optarg);
-            infile = fopen(optarg, "r");
-            break;
-        case 'o':
-            printf("%s output file\n", optarg);
-            outfile = fopen(optarg, "w");
-            break;
+        case 'i': infile = fopen(optarg, "r"); break;
+        case 'o': outfile = fopen(optarg, "w"); break;
         case 'u': undirected = true; break;
         case 'v': verbose = true; break;
+        case 'h':
+            printf("SYNOPSIS\n  Traveling Salesman Problem using DFS.\n\nUSAGE\n  ./tsp [-u] [-v] "
+                   "[-h] [-i infile] [-o outfile]\n\nOPTIONS\n  -u             Use undirected "
+                   "graph.\n  -v             Enable verbose printing.\n  -h             Program "
+                   "usage and help.\n  -i infile      Input containing graph (default: stdin)\n  "
+                   "-o outfile     Output of computed path (default: stdout)\n");
+            return 0;
         }
     }
 
@@ -55,14 +57,7 @@ int main(int argc, char **argv) {
     struct Path *shortest = path_create();
 
     dfs(graph, 0, p, outfile, shortest, cities);
-    if (size != 1) {
-        printf("Path length: %d\n", path_length(shortest));
-        printf("Path: %s -> ", cities[0]);
-        path_print(shortest, outfile, cities);
-        printf("Total recursive calls: %d\n", recursive);
-    } else {
-        printf("There's nowhere to go.\n");
-    }
+    out(outfile, size, shortest, cities);
     for (int i = 0; i < size; i += 1) {
         free(cities[i]);
     }
@@ -98,4 +93,14 @@ void dfs(Graph *graph, uint32_t v, Path *p, FILE *outfile, Path *shortest, char 
     }
     graph_mark_unvisited(graph, v);
     path_pop_vertex(p, &v, graph);
+}
+void out(FILE *outfile, int size, Path *shortest, char *cities[]) {
+    if (size != 1) {
+        printf("Path length: %d\n", path_length(shortest));
+        printf("Path: %s -> ", cities[0]);
+        path_print(shortest, outfile, cities);
+        printf("Total recursive calls: %d\n", recursive);
+    } else {
+        printf("There's nowhere to go.\n");
+    }
 }
