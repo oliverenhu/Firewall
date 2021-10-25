@@ -66,7 +66,9 @@ int main(int argc, char **argv) {
     for (int i = 0; i < size; i += 1) {
         free(cities[i]);
     }
-
+    graph_delete(&graph);
+    path_delete(&p);
+    path_delete(&shortest);
     return 0;
 }
 
