@@ -8,12 +8,12 @@
 #include <stdlib.h>
 
 
-//void dfs(Graph *graph,uint32_t v,Path *p,FILE *outfile,Path *shortest);
+void dfs(Graph *graph,uint32_t v,Path *p,FILE *outfile,Path *shortest,char *cities[]);
 bool verbose = false;	
+int recursive=1;
 int main(int argc, char **argv) {
 	FILE *infile =stdin;
 	FILE *outfile =stdout;
-//	FILE *dfs =stdout;
 	int size;
 	int opt = 0;
 	bool undirected = false;
@@ -42,7 +42,6 @@ int main(int argc, char **argv) {
 
 	buf[strlen(buf)] = '\0';		
 	size=atoi(buf);
-	fputs(buf, outfile);
 	char *cities[size];
 	for(int i=0;i<size;i+=1){
 		fgets(buf,1024 ,infile);
@@ -50,36 +49,49 @@ int main(int argc, char **argv) {
 		cities[i]=strdup(buf);
 				
 	}
+	struct Graph *graph = graph_create(size,undirected);
+	while(fgets(buf,1024,infile) != NULL){
+		char *i=strtok(buf," ");
+		char *j=strtok(NULL," ");	
+		 char *w=strtok(NULL," ");
+		graph_add_edge(graph,atoi(i),atoi(j),atoi(w));
 
 	
+	}	
 	
 	
-/*	
-	struct Graph *graph = graph_create(size,undirected);
+	
 	struct Path *p= path_create();
 	struct Path *shortest= path_create();
 
 	
 
-	dfs(graph,0,p,outfile,shortest);
-        printf("Path: %s -> ",cities[0]);
+	dfs(graph,0,p,outfile,shortest,cities);
+        if(size!=1){
+	printf("Path length: %d\n",path_length(shortest));
+	printf("Path: %s -> ",cities[0]);
         path_print(shortest,outfile,cities);
-        printf("Path length: %d\n",path_length(shortest));
-*/	for(int i=0;i<size;i+=1){
+	printf("Total recursive calls: %d\n",recursive);
+	}
+	else{
+		printf("There's nowhere to go.\n");
+	}
+	for(int i=0;i<size;i+=1){
                 free(cities[i]);
         }
 
 	return 0;
 }
-/*
-void dfs(Graph *graph,uint32_t v,Path *p,FILE *dfs,Path *shortest){
+
+void dfs(Graph *graph,uint32_t v,Path *p,FILE *outfile,Path *shortest,char *cities[]){
         graph_mark_visited(graph, v);
         for(uint32_t visit=1;visit<graph_vertices(graph);visit+=1){
                 if(!graph_visited(graph,visit)&&(graph_has_edge(graph,v,visit))){
 
                         path_push_vertex(p,visit,graph);
-                        dfs(graph,visit,p,dfs,shortest);
-                        }
+                        dfs(graph,visit,p,outfile,shortest,cities);
+                        recursive+=1;
+			}
                 }
         if(graph_has_edge(graph,v,0)&&path_vertices(p)+1==graph_vertices(graph)){
 
@@ -88,9 +100,9 @@ void dfs(Graph *graph,uint32_t v,Path *p,FILE *dfs,Path *shortest){
                         path_copy(shortest,p);
                 }
 		if(verbose){
-                printf("Path: %s -> ",cities[0]);
-                path_print(p,dfs,cities);
                 printf("Path length: %d\n",path_length(p));
+		printf("Path: %s -> ",cities[0]);
+                path_print(p,outfile,cities);
 		}
 		uint32_t zero=0;
                 path_pop_vertex(p,&zero,graph);
@@ -99,5 +111,5 @@ void dfs(Graph *graph,uint32_t v,Path *p,FILE *dfs,Path *shortest){
         path_pop_vertex(p,&v,graph);
 
         }
-*/
+
 	
