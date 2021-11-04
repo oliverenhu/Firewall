@@ -1,6 +1,6 @@
 #include "node.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 Node *node_create(uint8_t symbol, uint64_t frequency){
 	Node *n= (Node *) malloc(sizeof(Node));
 	if(n){
@@ -26,5 +26,10 @@ Node *node_join(Node *left, Node *right){
 	return parent;
 }
 
-void node_print(Node *n);
-
+void node_print(Node *n){
+	printf("%hhu,%lu",n->symbol,n->frequency);
+//	node_print(n->left);
+//	node_print(n->right);
+	return;
+}
+	
