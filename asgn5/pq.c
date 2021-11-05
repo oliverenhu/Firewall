@@ -47,9 +47,9 @@ int min_child(Node *items,int first, int last){
 	int left = 2 * first;
 	int right = left +1;
 	if( right<= last && items[right -1].frequency>items[left-1].frequency){
-		return left;
+		return right;
 	}
-	return right;
+	return left;
 
 }
 void node_swap(Node *x,Node *y){
