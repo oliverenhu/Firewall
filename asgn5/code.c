@@ -46,8 +46,9 @@ bool code_push_bit(Code *c, uint8_t bit){
 		if(bit==0){
 			code_clr_bit(c,c->top);
                         c->top+=1;
-               	return true;
 		}
+		return true;
+		
 	}	
 	return false;
 
