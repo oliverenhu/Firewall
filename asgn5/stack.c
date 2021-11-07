@@ -45,7 +45,7 @@ bool stack_full(Stack *s) {
 }
 bool stack_push(Stack *s, Node *n) {
     if (!stack_full(s)) {
-        *s->items[s->top] = *n;
+        s->items[s->top] = n;
         s->top += 1;
         return true;
     }
@@ -54,7 +54,8 @@ bool stack_push(Stack *s, Node *n) {
 bool stack_pop(Stack *s, Node **n) {
     if (!stack_empty(s)) {
         s->top -= 1;
-        **n = *s->items[s->top];
+        *n = s->items[s->top];
+
         return true;
     }
     return false;
