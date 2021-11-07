@@ -13,7 +13,7 @@ Node *node_create(uint8_t symbol, uint64_t frequency){
 
 
 void node_delete(Node **n){
-	if(*n&&(*n)->left&&(*n)->right){
+	if(*n){
 	free((*n)->left);
 	free((*n)->right);
 	free(*n);
@@ -23,11 +23,13 @@ void node_delete(Node **n){
 }
 Node *node_join(Node *left, Node *right){
 	Node *parent=node_create('$',left->frequency + right->frequency);
+	parent->left=left;
+	parent->right=right;
 	return parent;
 }
 
 void node_print(Node *n){
-	printf("%hhu,%lu",n->symbol,n->frequency);
+	printf("%hhu,%lu\n",n->symbol,n->frequency);
 //	node_print(n->left);
 //	node_print(n->right);
 	return;
