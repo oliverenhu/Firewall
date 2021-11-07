@@ -43,45 +43,24 @@ uint32_t pq_size(PriorityQueue *q){
 	return q->top;
 }
 
-int min_child(Node **items,int first, int last){
-	int left = 2 * first;
-	int right = left +1;
-	if( right<= last && items[right -1]->frequency>items[left-1]->frequency){
-		return right;
-	}
-	return left;
-
-}
 void node_swap(Node *x,Node *y){
         Node swap= *x;
         *x = *y;
         *y = swap;
 }
-void fix_queue(Node **items,int first, int last){
-	bool found = false;
-	int parent= first;
-	int great = min_child(items,parent,last);
-	while(parent<=floor(last/2) && !found){
-		if(items[parent -1]->frequency<items[great-1]->frequency){
-			node_swap(items[parent-1],items[great-1]);
-			parent =great;
-			great=min_child(items,parent,last);
-		}
-		else{
-			found=true;
-		}
-	}
-}
 void queue_sort(Node **items,uint32_t n){
-	int first=1;
-	int last=n;
-	for (int father = floor(last/2);father>first-1;father-=1){
-                fix_queue(items,father,last);
+	for (uint32_t i = 1; i < n; i += 1) {
+        uint32_t j = i;
+        Node *temp = items[i];
+        while ((j > 0) && items[j - 1]->frequency> temp->frequency) {
+
+            items[j]=items[j-1];
+            j -= 1;
         }
-	for (int leaf = last;leaf>first;leaf-=1){
-		node_swap(items[first-1],items[leaf-1]);
-		fix_queue(items,first,leaf-1);
-	}	
+
+        items[j]=temp;
+    }
+
 }
 bool enqueue(PriorityQueue *q, Node *n){
 	if (!pq_full(q)) {
