@@ -30,13 +30,14 @@ void stack_delete(Stack **s) {
     return;
 }
 
-uint32_t stack_size(Stack *s) {
-    return s->top;
-}
+
 
 bool stack_empty(Stack *s) {
 
     return s->top == 0;
+}
+uint32_t stack_size(Stack *s) {
+    return s->top;
 }
 
 bool stack_full(Stack *s) {
