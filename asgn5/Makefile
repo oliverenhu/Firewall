@@ -4,10 +4,10 @@ LFLAGS= -lm
 
 	 
 
-encode: encode.o node.o pq.o stack.o code.o
-	$(CC) -o encode encode.o node.o pq.o code.o $(LFLAGS)
+encode: encode.o node.o pq.o stack.o code.o io.o
+	$(CC) -o encode encode.o node.o pq.o stack.o code.o io.o $(LFLAGS)
 
-encode.o: encode.c header.h node.h pq.o stack.o code.o
+encode.o: encode.c header.h node.h pq.h stack.h code.h io.h
 	$(CC) $(CFLAGS) -c encode.c
 
 node.o: node.c node.h 
@@ -21,7 +21,8 @@ stack.o: stack.c stack.h node.h
 
 code.o: code.c code.h 
 	$(CC) $(CFLAGS) -c code.c
-
+io.o: io.c io.h code.h 
+	$(CC) $(CFLAGS) -c io.c
 clear:
 	rm -f sorting *.o
 
