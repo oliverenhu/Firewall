@@ -1,5 +1,6 @@
 #include "code.h"
 #include <inttypes.h>
+#include <stdio.h>
 
 Code code_init(void){
 Code c;
@@ -56,7 +57,12 @@ bool code_push_bit(Code *c, uint8_t bit){
 bool code_pop_bit(Code *c, uint8_t *bit){
 	if(!code_empty(c)){
 		c->top-=1;
-		*bit=code_get_bit(c,c->top);
+		if(code_get_bit(c,c->top)){
+		*bit=1;		
+		}
+		else{
+		*bit =0;
+		}
 		code_clr_bit(c,c->top);
                 return true;
         }
@@ -65,9 +71,9 @@ bool code_pop_bit(Code *c, uint8_t *bit){
 }
 
 void code_print(Code *c){
-	for (uint32_t i = 0;i<MAX_CODE_SIZE;i+=1){
-        	for 
-		printf(c.bits[i]=0;
+	for (uint32_t i = 0;i<MAX_CODE_SIZE*8;i+=1){
+        	 
+		printf("%d",(c->bits[i/8] >> i % 8));
 }
 
 }
