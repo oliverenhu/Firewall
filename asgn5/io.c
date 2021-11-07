@@ -1,7 +1,7 @@
 #include "io.h"
 #include <unistd.h>
 #include "defines.h"
-
+#include <stdio.h>
 #include "fcntl.h"
 #include <stdint.h>
 static uint8_t read_buffer[BLOCK];
@@ -37,7 +37,10 @@ bool read_bit(int infile, uint8_t *bit){
 		read_end=bytes*8 +1;
 		}
 	}
-	*bit = (read_buffer[read_index/8] >> read_index % 8);
+
+	*bit=(read_buffer[read_index/8] >> read_index% 8)& 0x1;
+	
+	
 	read_index+=1;
 	if(read_index==BLOCK*8){
 		read_index=0;
