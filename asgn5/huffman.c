@@ -71,8 +71,8 @@ void dump_tree(int outfile, Node *root) {
         write_bytes(outfile, build_buffer, 3 * leaves - 1);
     }
 }
-Node *rebuild_tree(uint16_t nbytes, uint8_t tree[static nbytes]){
-	Node *n
+//Node *rebuild_tree(uint16_t nbytes, uint8_t tree[static nbytes]){
+
 	
-}
+//}
 //void delete_tree(Node **root);
