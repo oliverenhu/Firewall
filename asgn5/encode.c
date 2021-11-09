@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
     Code table[ALPHABET]={0};
     uint8_t buf[BLOCK];
     int bytes=0;
-    uint64_t total_bytes=33204;
     do{
     int bytes = (read_bytes(infile, buf, BLOCK));
     for (int i = 0; i < bytes; i += 1) {
@@ -73,10 +72,10 @@ int main(int argc, char **argv) {
     head.file_size=permissions.st_size;
     head.tree_size=leaves*3-1;	    
     write(outfile,&head.magic,4);
-    write(outfile,&total_bytes,2);
+    write(outfile,&head.permissions,2);
     write(outfile,&head.tree_size,10);
     
-  
+/*  
 for(int i = 0; i < ALPHABET; i += 1) {
 	if(histogram[i]>0){
 	printf("%c:",i);
@@ -84,7 +83,7 @@ for(int i = 0; i < ALPHABET; i += 1) {
 	printf("\n");
 }
 
-}
+}*/
     dump_tree(outfile,root);	
     lseek(infile,0,SEEK_SET);
     bytes_read=0;
