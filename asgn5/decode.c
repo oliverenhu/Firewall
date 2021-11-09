@@ -36,48 +36,43 @@ int main(int argc, char **argv) {
     uint32_t magic;
     uint16_t tree_size;
     uint8_t file_size;
-    read_bytes(infile,headbuf,16);
-    magic= (headbuf[3]<<24)|(headbuf[2]<<16)|(headbuf[1]<<8)|(headbuf[0]);
-    if(magic!=MAGIC){
-    printf("MAGIC NUMBER DOES NOT MATCH\n");
-	    return 0;
-    }	    
+    read_bytes(infile, headbuf, 16);
+    magic = (headbuf[3] << 24) | (headbuf[2] << 16) | (headbuf[1] << 8) | (headbuf[0]);
+    if (magic != MAGIC) {
+        printf("MAGIC NUMBER DOES NOT MATCH\n");
+        return 0;
+    }
     Header head;
-    
-    head.permissions=(headbuf[5]<<8)|headbuf[4];
-    fchmod(outfile,head.permissions);
-    tree_size=(headbuf[7]<<8)|headbuf[6];
-    file_size=(headbuf[9]<<8)|headbuf[8]; 
+
+    head.permissions = (headbuf[5] << 8) | headbuf[4];
+    fchmod(outfile, head.permissions);
+    tree_size = (headbuf[7] << 8) | headbuf[6];
+    file_size = (headbuf[9] << 8) | headbuf[8];
     uint8_t tree[tree_size];
-    
-    read_bytes(infile,tree,tree_size);
-    
-    Node *root=rebuild_tree(tree_size,tree);
+
+    read_bytes(infile, tree, tree_size);
+
+    Node *root = rebuild_tree(tree_size, tree);
     return 0;
     Code table[ALPHABET] = { 0 };
     build_codes(root, table);
     uint8_t out[file_size];
-    
-    
-    uint64_t outindex=0;
-   
-    bool read=true;    
-    static Code c;
-    while(read){
-        for(int i=0;i<ALPHABET;i+=1){
-		if(c.bits==table[i].bits){
-		out[outindex]=i;
-		outindex+=1;
 
-		}	
-	}
-	uint8_t bit;	
-        read=read_bit(infile,&bit);
-	code_push_bit(&c,bit);
-		
-	
+    uint64_t outindex = 0;
+
+    bool read = true;
+    static Code c;
+    while (read) {
+        for (int i = 0; i < ALPHABET; i += 1) {
+            if (c.bits == table[i].bits) {
+                out[outindex] = i;
+                outindex += 1;
+            }
+        }
+        uint8_t bit;
+        read = read_bit(infile, &bit);
+        code_push_bit(&c, bit);
     }
-    write_bytes(outfile,out,file_size);
-	return 0;
-    
+    write_bytes(outfile, out, file_size);
+    return 0;
 }
