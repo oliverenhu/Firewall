@@ -53,6 +53,6 @@ DESIGN.pdf: Describes the entire assignment along with all information regarding
 
 INSTRUCTIONS
 
-This program is intended to be run in the Ubuntu Virtual Box with PuTTY and in order to run program you will be given a list of commands when running the program using '-h'.You will provide the program with a file and it will encode the file into the output file specified.
+This program is intended to be run in the Ubuntu Virtual Box with PuTTY and in order to run program you will be given a list of commands when running the program using '-h'.You will provide the program with a file and it will encode the file into the output file specified. The encoder works with resource decoder however fails pipeline.
 
 
