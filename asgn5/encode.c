@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 int main(int argc, char **argv) {
     int infile;
+  
     int outfile;
     bool stats = false;
     int opt = 0;
@@ -31,49 +32,71 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    uint8_t buf[BLOCK];
     uint64_t histogram[ALPHABET]={0};
-    int bytes = (read_bytes(infile, buf, BLOCK));
     Code table[ALPHABET]={0};
-
+    uint8_t buf[BLOCK];
+    int bytes=0;
+    uint64_t total_bytes=33204;
+    do{
+    int bytes = (read_bytes(infile, buf, BLOCK));
     for (int i = 0; i < bytes; i += 1) {
-        
             histogram[buf[i]] += 1;
-            printf("symbol:%c,frequency:%lu\n",buf[i],histogram[buf[i]]);
-        
     }
-    int leaves=0;
+    }while(bytes>0);
+
+
+    
+    int leaves=2;
     for(int i =0;i<ALPHABET;i+=1){
-    	if(histogram[buf[i]]>0){
+    	if(histogram[i]>0){
+//		printf("symbol:%c,frequency:%lu\n",i,histogram[i]);
 		leaves+=1;
 		}
 
     }
     histogram[0] += 1;
     histogram[255] += 1;
-    	
     
     Node *root=build_tree(histogram);
-    node_print(root);
+     //returns the root of the build_tree()
     
 
-    build_codes(root,table);
+    build_codes(root,table);           //builds the code
 
     Header head;
     head.magic=MAGIC;
     struct stat permissions;
-  
+     
     fstat(infile,&permissions);
     head.permissions=permissions.st_mode;
     fchmod(outfile,head.permissions);
-    head.tree_size=permissions.st_size;
-    head.file_size=bytes;	    
+    head.file_size=permissions.st_size;
+    head.tree_size=leaves*3-1;	    
     write(outfile,&head.magic,4);
-    write(outfile,&head.tree_size,1);
-    write(outfile,&head.file_size,1);
-for(int i = 0; i < bytes; i += 1) {
-	code_print(&table[buf[i]]);
+    write(outfile,&total_bytes,2);
+    write(outfile,&head.tree_size,10);
+    
+  
+for(int i = 0; i < ALPHABET; i += 1) {
+	if(histogram[i]>0){
+	printf("%c:",i);
+	code_print(&table[i]);
 	printf("\n");
 }
+
+}
+    dump_tree(outfile,root);	
+    lseek(infile,0,SEEK_SET);
+    bytes_read=0;
+    do{
+    int bytes = (read_bytes(infile, buf, BLOCK));
+    for (int i = 0; i < bytes; i += 1) {
+
+           write_code(outfile,&table[buf[i]]); 
+    }
+    }while(bytes>0);
+
+    flush_codes(outfile);	
+
     return 0;
 }
