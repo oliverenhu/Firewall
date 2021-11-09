@@ -37,5 +37,5 @@ clean:
 format:
 	clang-format -i -style=file *.[ch]
 
-all: encode
+all: encode decode
 
