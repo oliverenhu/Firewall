@@ -30,8 +30,6 @@ void stack_delete(Stack **s) {
     return;
 }
 
-
-
 bool stack_empty(Stack *s) {
 
     return s->top == 0;
@@ -62,7 +60,7 @@ bool stack_pop(Stack *s, Node **n) {
 }
 
 void stack_print(Stack *s) {
-    for (uint32_t i = 0; i < s->top; i += 1) { 
-	node_print(s->items[i]);
-}
+    for (uint32_t i = 0; i < s->top; i += 1) {
+        node_print(s->items[i]);
+    }
 }
