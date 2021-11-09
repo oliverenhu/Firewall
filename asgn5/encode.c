@@ -73,7 +73,8 @@ int main(int argc, char **argv) {
     head.tree_size=leaves*3-1;	    
     write(outfile,&head.magic,4);
     write(outfile,&head.permissions,2);
-    write(outfile,&head.tree_size,10);
+    write(outfile,&head.tree_size,2);
+    write(outfile,&head.file_size,8);
     
 /*  
 for(int i = 0; i < ALPHABET; i += 1) {
