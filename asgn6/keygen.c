@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <sys/stat.h>
-
+#include <gmp.h>
 
 int main(int argc, char **argv) {
     FILE *pbfile = stdout;
@@ -25,6 +25,14 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-
-    }
+    mpz_t d,a,b;
+    mpz_init(d);
+    mpz_init_set_ui(a,10);
+    mpz_init_set_ui(b,5);    
+    gcd(d,a,b);
+    gmp_printf("gcd is %Zd \n",d);
+   
+    mpz_clears(a,b,d,NULL);	
+    return 0;	    
+}
 

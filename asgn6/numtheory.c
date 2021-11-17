@@ -7,8 +7,7 @@
 
 void gcd(mpz_t d, mpz_t a, mpz_t b){
 	mpz_t at, bt, t;
-	mpz_init_set(at,a);
-	
+	mpz_init_set(at,a);	
 	mpz_init_set(bt,b);
 	mpz_init(t);
 	while(mpz_sgn(bt)!=0){
@@ -16,13 +15,13 @@ void gcd(mpz_t d, mpz_t a, mpz_t b){
 		mpz_mod(bt,at,bt);
 		mpz_set(at,t);
 	}
-	mpz_set(d,at);
-	gmp_printf("gcd is %Z\n",d);
-	mpz_clears(at,bt,t);
+	mpz_swap(d,at);
+	mpz_clears(at,bt,t,NULL);
+	return;
 }
 void mod_inverse(mpz_t i, mpz_t a, mpz_t n){
 	mpz_t q, qri, rqri, qti, tqti,r,ri,t,ti;
-	mpz_inits(q,qri,rqri,qti,tqti);
+	mpz_inits(q,qri,rqri,qti,tqti,NULL);
 	mpz_init_set(r,n);
         mpz_init_set(ri,a);
 	mpz_init_set_ui(t,0);
@@ -43,7 +42,10 @@ void mod_inverse(mpz_t i, mpz_t a, mpz_t n){
 	if(mpz_cmp_ui(r,1)>0){
 		mpz_set_ui(i,0);	
 	}
-	mpz_clears(q,qri,rqri,qti,tqti,r,ri,t,ti);
+	gmp_printf("modin is %Zd \n",i);
+
+	mpz_clears(q,qri,rqri,qti,tqti,r,ri,t,ti,NULL);
+	return;
 }
 void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
 	mpz_t d, n, v, p, odd, vpmul,ppmul;
@@ -51,7 +53,7 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
 	mpz_init_set(n,modulus);
 	mpz_init_set_ui(v,1);
 	mpz_init_set(p,base);
-	mpz_inits(vpmul,ppmul,odd);
+	mpz_inits(vpmul,ppmul,odd,NULL);
 	while(mpz_sgn(d)>0){
 		mpz_mod_ui(odd,d,2);
 		if(mpz_sgn(odd)==1){
@@ -63,15 +65,17 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
 		mpz_fdiv_q_ui(d,d,2);
 	}
 	mpz_set(out,v);
-	mpz_clears(d,n,v,p,odd,vpmul,ppmul);
+	mpz_clears(d,n,v,p,odd,vpmul,ppmul,NULL);
+	gmp_printf("powmod is %Zd \n",out);
 
+	return;
 }
 bool is_prime(mpz_t n, uint64_t iters){
 	mpz_t r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr;
 	mpz_init_set_ui(mod,1);
 	mpz_init_set_ui(s,0);
 	mpz_init_set_ui(two,2);
-	mpz_inits(r,rand,a,y,y0,j,nr);
+	mpz_inits(r,rand,a,y,y0,j,nr,NULL);
 	mpz_sub_ui(nr,n,1);
 	mpz_mod_ui(reven,r,2);
 	mpz_sub_ui(rand,nr,2);
@@ -81,7 +85,7 @@ bool is_prime(mpz_t n, uint64_t iters){
 		mpz_fdiv_q(r,nr,twos);
 		mpz_mod_ui(reven,r,2);
 		if(mpz_cmp(nr,two)<0){
-			mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr);
+			mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr,NULL);
 			return false;
 		}
 		mpz_add_ui(s,s,1);
@@ -99,18 +103,18 @@ bool is_prime(mpz_t n, uint64_t iters){
 				 pow_mod(y,y,two,n);
 			 	 mpz_add_ui(y0,y,1);	 
 		 		 if(mpz_sgn(y0)==0){
-					mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr); 
+					mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr,NULL); 
 				 	return false;	
 				 }
 				 mpz_add_ui(j,j,1);		 
 			}
 			if(mpz_cmp(y,nr)!=0){
-				mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr);
+				mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr,NULL);
 				return false;
 			}	
 		}
 	}
-	mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr);
+	mpz_clears(r,reven,twos,two,rand,a,y,y0,y1,j,mod,s,nr,NULL);
 	return true;
 	}
 
@@ -124,4 +128,7 @@ void make_prime(mpz_t p, uint64_t bits, uint64_t iters){
 	}
 	mpz_set(p,prime);
 	mpz_clear(prime);
+	gmp_printf("mkp is %Zd \n",p);
+
+	return;
 }	
