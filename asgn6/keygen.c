@@ -8,7 +8,7 @@
 #include <inttypes.h>
 #include <sys/stat.h>
 #include <gmp.h>
-
+#include <time.h>
 int main(int argc, char **argv) {
     FILE *pbfile = stdout;
     FILE *pvfile = stdout;
@@ -25,14 +25,20 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    mpz_t d,a,b;
+    mpz_t d,a,b,c;
     mpz_init(d);
-    mpz_init_set_ui(a,10);
-    mpz_init_set_ui(b,5);    
-    gcd(d,a,b);
-    gmp_printf("gcd is %Zd \n",d);
-   
-    mpz_clears(a,b,d,NULL);	
+    mpz_init_set_ui(a,659);
+    mpz_init_set_ui(b,2);
+    mpz_init_set_ui(c,9);
+
+    randstate_init(time(NULL));    
+    make_prime(d,256,50);
+    gmp_printf("make prime nis %Zd \n",d);	
+    
+ 
+  
+    mpz_clears(a,b,c,d,NULL);
+    randstate_clear();    
     return 0;	    
 }
 
