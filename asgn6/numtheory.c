@@ -77,20 +77,23 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
 	return;
 }
 bool is_prime(mpz_t n, uint64_t iters){
-	mpz_t r,reven,twos,two,rand,a,y,s1,j,s,nr;
+	mpz_t r,reven,two,twos,rand,a,y,s1,j,s,nr;
 	mpz_init_set_ui(s,-1);
 	mpz_init_set_ui(two,2);
 	mpz_inits(r,reven,twos,rand,a,y,s1,j,nr,NULL);
 	mpz_sub_ui(nr,n,1);
 	mpz_sub_ui(rand,nr,2);
-	int si;
-	do{	
+	mpz_set_ui(twos,1);
+
+	mpz_fdiv_q(r,nr,twos);
+        mpz_mod_ui(reven,r,2);
+	while(mpz_get_ui(reven)==0){	
 		mpz_add_ui(s,s,1);
-		si=mpz_get_ui(s);
-		mpz_pow_ui(twos,two,si);
+		
+		mpz_mul_ui(twos,twos,2);
 		
 		if(mpz_cmp(nr,twos)<0){
-			mpz_clears(r,reven,twos,two,rand,a,y,s1,j,s,nr,NULL);
+			mpz_clears(r,reven,two, twos,rand,a,y,s1,j,s,nr,NULL);
 		        return false;
 		}
 		mpz_fdiv_q(r,nr,twos);
@@ -98,7 +101,7 @@ bool is_prime(mpz_t n, uint64_t iters){
 		
 	
 
-	}while(mpz_get_ui(reven)==0);
+	}
 	mpz_sub_ui(s1,s,1);
 	for(uint64_t i =1;i<iters;i+=1){
 		mpz_urandomm(a,state,rand);
@@ -112,13 +115,13 @@ bool is_prime(mpz_t n, uint64_t iters){
 				 pow_mod(y,y,two,n);
 			 	 	 
 		 		 if(mpz_cmp_ui(y,1)==0){
-					mpz_clears(r,reven,twos,two,rand,a,y,s1,j,s,nr,NULL); 
+					mpz_clears(r,reven,two,twos,rand,a,y,s1,j,s,nr,NULL); 
 				 	return false;	
 				 }
 				 mpz_add_ui(j,j,1);		 
 			}
 			if(mpz_cmp(y,nr)!=0){
-				mpz_clears(r,reven,twos,two,rand,a,y,s1,j,s,nr,NULL);
+				mpz_clears(r,reven,two,twos,rand,a,y,s1,j,s,nr,NULL);
 				return false;
 			}	
 		}
