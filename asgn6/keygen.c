@@ -25,19 +25,19 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    mpz_t d,a,b,c;
-    mpz_init(d);
-    mpz_init_set_ui(a,659);
+    mpz_t d,a,b,c,p,q,e,n;
+    mpz_inits(d,p,q,e,n);
+    mpz_init_set_ui(a,100);
     mpz_init_set_ui(b,2);
     mpz_init_set_ui(c,9);
 
     randstate_init(time(NULL));    
-    make_prime(d,256,50);
-    gmp_printf("make prime nis %Zd \n",d);	
+    rsa_make_pub(p,q,n,e,256,50);    
+    gmp_printf("make prime nis %Zd \n",p);	
+   // pvfile=fopen("hu","w+");    
     
- 
   
-    mpz_clears(a,b,c,d,NULL);
+    mpz_clears(a,b,c,d,p,q,e,n,NULL);
     randstate_clear();    
     return 0;	    
 }
