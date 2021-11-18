@@ -78,7 +78,9 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
 	return;
 }
 bool is_prime(mpz_t n, uint64_t iters){
-
+	if(mpz_sgn(n)==0){
+		return false;
+	}	
 	mpz_t r,reven,two,twos,rand,a,y,s1,j,s,nr;
 	mpz_init_set_ui(s,-1);
 	mpz_init_set_ui(two,2);
