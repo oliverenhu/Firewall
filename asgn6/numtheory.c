@@ -78,12 +78,14 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
 	return;
 }
 bool is_prime(mpz_t n, uint64_t iters){
-	if(mpz_sgn(n)==0){
+	
+	if(mpz_sgn(n)==0||mpz_cmp_ui(n,4)==0){
 		return false;
 	}
-	if(mpz_cmp_ui(n,2)==0){
+	if(mpz_cmp_ui(n,2)==0||mpz_cmp_ui(n,3)==0){
                 return true;
-        }	
+        }
+	
 	mpz_t r,reven,two,twos,rand,a,y,s1,j,s,nr;
 	mpz_init_set_ui(s,0);
 	mpz_init_set_ui(two,2);
@@ -118,7 +120,7 @@ bool is_prime(mpz_t n, uint64_t iters){
 			mpz_set_ui(j,1);
 			
 			while(mpz_cmp(j,s1)<=0 && mpz_cmp(y,nr)!=0){
-				printf("g");
+				
 				 pow_mod(y,y,two,n);
 			 	 	 
 		 		 if(mpz_cmp_ui(y,1)==0){
