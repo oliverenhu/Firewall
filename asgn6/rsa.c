@@ -1,7 +1,7 @@
 #include "rsa.h"
 #include "randstate.h"
 #include "numtheory.h"
-
+#include <stdlib.h>
 
 void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t iters){
 	mpz_t pbits, qbits,nbit,twobit,buf,tot,pt,qt,co,d;
@@ -35,23 +35,75 @@ void rsa_write_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile){
 	gmp_fprintf(pbfile,"%Zd\n%Zd\n%Zd\n",n,e,s);
 	gmp_fprintf(pbfile,"%s",username);	
 }
-void rsa_read_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile);
+void rsa_read_pub(mpz_t n, mpz_t e, mpz_t s, char username[], FILE *pbfile){
+	
+	gmp_fscanf(pbfile,"%Zd\n%Zd\n%Zd\n%s",n,e,s,username);
+}
 
-void rsa_make_priv(mpz_t d, mpz_t e, mpz_t p, mpz_t q);
+void rsa_make_priv(mpz_t d, mpz_t e, mpz_t p, mpz_t q){
+	mpz_t ptot,p1,q1;
+	mpz_inits(ptot,p1,q1,NULL);
+	mpz_sub_ui(p1,p,1);
+	mpz_sub_ui(q1,q,1);
+	mpz_mul(ptot,p1,q1);
+	mod_inverse(d,e,ptot);
+	mpz_clears(ptot,p1,q1,NULL);
+}
+void rsa_write_priv(mpz_t n, mpz_t d, FILE *pvfile){
+	gmp_fprintf(pvfile,"%Zd\n%Zd\n",n,d);
+	
+}
+void rsa_read_priv(mpz_t n, mpz_t d, FILE *pvfile){
+	gmp_fscanf(pvfile,"%Zd\n%Zd\n",n,d);
+}	
+void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n){
+	pow_mod(c,m,e,n);
+}
+void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e){
+	mpz_t k,m,encrypt;
+	
+	mpz_inits(k,m,encrypt);
+	size_t log = mpz_sizeinbase(n,2);
+	mpz_set_ui(k,log);
+	mpz_sub_ui(k,k,1);
+	mpz_fdiv_q_ui(k,k,8);
+	uint8_t *kbytes=(uint8_t *) calloc(mpz_get_ui(k),sizeof(uint8_t));
+	kbytes[0]=0xFF;
+	int j=fread(kbytes+1,1,mpz_get_ui(k)-1,infile);
+	mpz_import(m,j+1,1,1,1,0,kbytes);
+	rsa_encrypt(encrypt,m,e,n);
+	gmp_fprintf(outfile,"%Zx\n",encrypt);
+	
 
-void rsa_write_priv(mpz_t n, mpz_t d, FILE *pvfile);
+}	
+void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n){
+	pow_mod(m,c,d,n);	
+}
+void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d){
+	mpz_t k,c,decrypt;
+        mpz_inits(k,c,decrypt);
+        size_t log = mpz_sizeinbase(n,2);
+        mpz_set_ui(k,log);
+        mpz_sub_ui(k,k,1);
+        mpz_fdiv_q_ui(k,k,8);
+	uint8_t *kbytes=(uint8_t *) calloc(mpz_get_ui(k),sizeof(uint8_t));
+	size_t j=gmp_fscanf(infile,"%Zx\n",c);
+	rsa_decrypt(decrypt,c,d,n);
+	mpz_export(kbytes,&j,1,1,1,0,decrypt);
+	fwrite(kbytes+1,1,mpz_get_ui(k)-1,outfile);
 
-void rsa_read_priv(mpz_t n, mpz_t d, FILE *pvfile);
-
-void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n);
-
-void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e);
-
-void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n);
-
-void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d);
-
-void rsa_sign(mpz_t s, mpz_t m, mpz_t d, mpz_t n);
-
-bool rsa_verify(mpz_t m, mpz_t s, mpz_t e, mpz_t n);
-
+}
+void rsa_sign(mpz_t s, mpz_t m, mpz_t d, mpz_t n){
+	pow_mod(s,m,d,n);
+	}	
+bool rsa_verify(mpz_t m, mpz_t s, mpz_t e, mpz_t n){
+	mpz_t t;
+	mpz_init(t);
+	pow_mod(t,s,e,n);
+	if(mpz_cmp(t,m)==0){
+		mpz_clear(t);
+		return true;
+	}
+	mpz_clear(t);
+	return false;	
+}
