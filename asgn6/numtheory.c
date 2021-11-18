@@ -81,7 +81,7 @@ bool is_prime(mpz_t n, uint64_t iters){
 	if(mpz_sgn(n)==0){
 		return false;
 	}
-	if(mpz_sgn(n)==2){
+	if(mpz_cmp_ui(n,2)==0){
                 return true;
         }	
 	mpz_t r,reven,two,twos,rand,a,y,s1,j,s,nr;
