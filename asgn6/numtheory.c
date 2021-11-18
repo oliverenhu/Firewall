@@ -85,7 +85,7 @@ bool is_prime(mpz_t n, uint64_t iters){
                 return true;
         }	
 	mpz_t r,reven,two,twos,rand,a,y,s1,j,s,nr;
-	mpz_init_set_ui(s,-1);
+	mpz_init_set_ui(s,0);
 	mpz_init_set_ui(two,2);
 	mpz_inits(r,reven,twos,rand,a,y,s1,j,nr,NULL);
 	mpz_sub_ui(nr,n,1);
@@ -117,7 +117,7 @@ bool is_prime(mpz_t n, uint64_t iters){
 		if(mpz_cmp_ui(y,1)!=0 && mpz_cmp(y,nr)!=0){
 			mpz_set_ui(j,1);
 			
-			while(mpz_cmp(j,s1)>=0 && mpz_cmp(y,nr)!=0){
+			while(mpz_cmp(j,s1)<=0 && mpz_cmp(y,nr)!=0){
 				printf("g");
 				 pow_mod(y,y,two,n);
 			 	 	 
