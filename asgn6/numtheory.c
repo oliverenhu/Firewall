@@ -71,12 +71,14 @@ void pow_mod(mpz_t out, mpz_t base, mpz_t exponent, mpz_t modulus){
                 mpz_mod(p,ppmul,n);
 		mpz_fdiv_q_ui(d,d,2);
 	}
+	
 	mpz_set(out,v);
 	mpz_clears(d,n,v,p,odd,vpmul,ppmul,NULL);
 
 	return;
 }
 bool is_prime(mpz_t n, uint64_t iters){
+
 	mpz_t r,reven,two,twos,rand,a,y,s1,j,s,nr;
 	mpz_init_set_ui(s,-1);
 	mpz_init_set_ui(two,2);

@@ -27,15 +27,15 @@ int main(int argc, char **argv) {
     }
     mpz_t d,a,b,c,p,q,e,n;
     mpz_inits(d,p,q,e,n);
-    mpz_init_set_ui(a,100);
+    mpz_init_set_ui(a,0);
     mpz_init_set_ui(b,2);
     mpz_init_set_ui(c,9);
 
     randstate_init(time(NULL));    
-    rsa_make_pub(p,q,n,e,256,50);    
-    gmp_printf("make prime nis %Zd \n",p);	
+   // rsa_make_pub(p,q,n,e,256,50);    
+  //  gmp_printf("make prime nis %Zd \n",p);	
    // pvfile=fopen("hu","w+");    
-    
+    is_prime(a,50);
   
     mpz_clears(a,b,c,d,p,q,e,n,NULL);
     randstate_clear();    
