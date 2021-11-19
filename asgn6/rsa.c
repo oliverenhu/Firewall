@@ -26,8 +26,8 @@ void rsa_make_pub(mpz_t p, mpz_t q, mpz_t n, mpz_t e, uint64_t nbits, uint64_t i
 	gcd(d,co,tot);
 	}while(mpz_cmp_ui(d,1)!=0);
 	mpz_set(e,co);
-	gmp_printf("pbits %Zd",pbits);
-	gmp_printf("pbits %Zd",qbits);
+//	gmp_printf("pbits %Zd",pbits);
+//	gmp_printf("pbits %Zd",qbits);
 	mpz_clears( pbits, qbits,nbit,twobit,buf,tot,pt,qt,co,d,NULL);	
 }
 
