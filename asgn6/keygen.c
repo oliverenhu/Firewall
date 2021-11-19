@@ -10,33 +10,50 @@
 #include <gmp.h>
 #include <time.h>
 int main(int argc, char **argv) {
+    char *username;	
+    char *pub="rsa.pub";
+    char *priv="rsa.priv";
     FILE *pbfile = stdout;
     FILE *pvfile = stdout;
     bool verbose = false;
+    uint64_t seed=time(NULL);
     int opt = 0;
-    int bits;
+    uint64_t mbits=256;
+    uint64_t iters=50;
     while ((opt = getopt(argc, argv, "b:i:n:d:s:vh")) != -1) {
         switch (opt) {
-	case 'b': bits=atoi(optarg);
-        case 'i': pbfile = fopen(optarg, "w"); break;
-        case 'o': pvfile = fopen(optarg, "w"); break;
+	case 'b': nbits=atoi(optarg);
+	case 'i': iters=atoi(optarg);	  
+        case 'n': pub = (optarg); break;
+        case 'd': priv = (optarg); break;
+	case 's': seed = atoi(optarg); break;	  
         case 'v': verbose = true; break;
-        case 'h':
+        case 'h': printf("SYNOPSIS\n   Generates an RSA public/private key pair.\n\nUSAGE\n   ./keygen [-hv] [-b bits] -n pbfile -d pvfile\n\nOPTIONS\n   -h              Display program help and usage.\n   -v              Display verbose program output.\n   -b bits         Minimum bits needed for public key n (default: 256).\n   -i confidence   Miller-Rabin iterations for testing primes (default: 50).\n   -n pbfile       Public key file (default: rsa.pub).\n   -d pvfile       Private key file (default: rsa.priv).\n   -s seed         Random seed for testing.\n"); 
             return 0;
         }
     }
-    mpz_t d,a,b,c,p,q,e,n;
-    mpz_inits(d,p,q,e,n);
-    mpz_init_set_ui(a,0);
-    mpz_init_set_ui(b,2);
-    mpz_init_set_ui(c,9);
-
-    randstate_init(time(NULL));    
-   // rsa_make_pub(p,q,n,e,256,50);    
-  //  gmp_printf("make prime nis %Zd \n",p);	
-   // pvfile=fopen("hu","w+");    
-    is_prime(a,50);
-  
+    pbfile=fopen(pub,"w+");
+    if(pbfile==NULL){
+	    printf("SYNOPSIS\n   Generates an RSA public/private key pair.\n\nUSAGE\n   ./keygen [-hv] [-b bits] -n pbfile -d pvfile\n\nOPTIONS\n   -h              Display program help and usage.\n   -v              Display verbose program output.\n   -b bits         Minimum bits needed for public key n (default: 256).\n   -i confidence   Miller-Rabin iterations for testing primes (default: 50).\n   -n pbfile       Public key file (default: rsa.pub).\n   -d pvfile       Private key file (default: rsa.priv).\n   -s seed         Random seed for testing.\n");
+    return 0;
+    }
+    pvfile=fopen(priv,"w+");
+    if(pvfile==NULL){
+            printf("SYNOPSIS\n   Generates an RSA public/private key pair.\n\nUSAGE\n   ./keygen [-hv] [-b bits] -n pbfile -d pvfile\n\nOPTIONS\n   -h              Display program help and usage.\n   -v              Display verbose program output.\n   -b bits         Minimum bits needed for public key n (default: 256).\n   -i confidence   Miller-Rabin iterations for testing primes (default: 50).\n   -n pbfile       Public key file (default: rsa.pub).\n   -d pvfile       Private key file (default: rsa.priv).\n   -s seed         Random seed for testing.\n");
+    return 0;
+    }
+    
+    fchmod(fileno(pvfile),0600);
+    randstate_init(seed);
+    mpz_t p,q,e,n,d,usr,s;
+    mpz_inits(p,q,e,n,d,usr,s);
+    rsa_make_pub(p,q,n,e,nbits,iters);
+    rsa_make_priv(d,e,p,q); 
+    username=getenv("USERNAME");
+    mpz_set_str(usr,username,62);
+    rsa_sign(s,usr,d,n);
+    rsa_write_pub(n,e,s,username,pbfile);
+    rsa_write_priv(n,e,s,username,pvfile);
     mpz_clears(a,b,c,d,p,q,e,n,NULL);
     randstate_clear();    
     return 0;	    
