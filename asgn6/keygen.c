@@ -60,6 +60,8 @@ int main(int argc, char **argv) {
     }
     mpz_clears(p,q,e,n,d,usr,s,NULL);
     randstate_clear();    
+    fclose(pbfile);
+    fclose(pvfile);
     return 0;	    
 }
 
