@@ -32,6 +32,6 @@ rsa.o: rsa.c rsa.h numtheory.h randstate.h
 format:
 	clang-format -i -style=file *.[ch]
 clean:
-	rm -f keygen *.o
+	rm -f keygen encrypt decrypt *.o
 
 all: keygen encrypt decrypt
