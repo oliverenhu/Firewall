@@ -60,18 +60,31 @@ void rsa_encrypt(mpz_t c, mpz_t m, mpz_t e, mpz_t n) {
 }
 void rsa_encrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t e) {
     mpz_t k, m, encrypt;
-
-    mpz_inits(k, m, encrypt);
+    size_t j;
+    
+    
+    mpz_inits(k, m, encrypt,NULL);
     size_t log = mpz_sizeinbase(n, 2);
     mpz_set_ui(k, log);
     mpz_sub_ui(k, k, 1);
     mpz_fdiv_q_ui(k, k, 8);
+    
+    
+    
     uint8_t *kbytes = (uint8_t *) calloc(mpz_get_ui(k), sizeof(uint8_t));
-    kbytes[0] = 0xFF;
-    int j = fread(kbytes + 1, 1, mpz_get_ui(k) - 1, infile);
+    kbytes[0] = 0xff;
+    
+    do{
+        
+    j = fread(kbytes+1 ,1 , mpz_get_ui(k) - 1, infile);
+    
     mpz_import(m, j + 1, 1, 1, 1, 0, kbytes);
     rsa_encrypt(encrypt, m, e, n);
     gmp_fprintf(outfile, "%Zx\n", encrypt);
+    
+    }while(j==mpz_get_ui(k)-1);
+    mpz_clears(k,m,encrypt,NULL);
+    free(kbytes);
 }
 void rsa_decrypt(mpz_t m, mpz_t c, mpz_t d, mpz_t n) {
     pow_mod(m, c, d, n);
