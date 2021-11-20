@@ -102,10 +102,14 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     uint8_t *kbytes = (uint8_t *) calloc(mpz_get_ui(k), sizeof(uint8_t));
     do{
     j = gmp_fscanf(infile, "%Zx\n", c);
+    
     rsa_decrypt(decrypt, c, d, n);
     mpz_export(kbytes, &j, 1, 1, 1, 0, decrypt);
     fwrite(kbytes + 1, 1, j - 1, outfile);
-    }while(j==mpz_get_ui(k) - 1);
+    if(feof(infile)){
+        break;
+		    }    
+    }while(1);
     mpz_clears(k,c,decrypt,NULL);
     free(kbytes); 
 }
