@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
     rsa_sign(s, usr, d, n); //signs using usr
     rsa_write_pub(n, e, s, username, pbfile); //writes out key pub to pbfile
     rsa_write_priv(n, d, pvfile); //writes out key to pvfile
-    if (verbose) { //prints out varaiables and stats if true
+    if (verbose) { //prints out variables and stats if true
         gmp_printf("user = %s\ns (%zu bits) = %Zd\np (%zu bits) = %Zd\nq (%zu bits) = %Zd\nn (%zu "
                    "bits) = %Zd\ne (%zu bits) = %Zd\nd (%zu bits) = %Zd\n",
             username, mpz_sizeinbase(s, 2), s, mpz_sizeinbase(p, 2), p, mpz_sizeinbase(q, 2), q,
