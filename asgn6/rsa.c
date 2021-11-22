@@ -107,7 +107,7 @@ void rsa_decrypt_file(FILE *infile, FILE *outfile, mpz_t n, mpz_t d) {
     uint8_t *kbytes = (uint8_t *) calloc(
         mpz_get_ui(k), sizeof(uint8_t)); //dynamically allocate array of uint8_t size k
     do { //while unread bytes in infile scan in a block of c hexstring and decrypt and export them into an mpz. Then write out kytes starting from first element to outfile
-        rypt and write out as hexstring to outfile j = gmp_fscanf(infile, "%Zx\n", c);
+        j = gmp_fscanf(infile, "%Zx\n", c);
 
         rsa_decrypt(decrypt, c, d, n);
         mpz_export(kbytes, &j, 1, 1, 1, 0, decrypt);
