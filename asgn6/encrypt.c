@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
     mpz_inits(usr, s, n, e, NULL);
 
     pubkey = fopen(pub, "r"); //opens pubfile and reads
-    if (pubkey == NULL) { //prints helful message if opening pubfile fails
+    if (pubkey == NULL) { //prints helpful message if opening pubfile fails
         printf("SYNOPSIS\n   Encrypts data using RSA encryption.\n   Encrypted data is decrypted "
                "by the decrypt program.\n\nUSAGE\n   ./encrypt [-hv] [-i infile] [-o outfile] -n "
                "pubkey\n\nOPTIONS\n   -h              Display program help and usage.\n   -v       "
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 
         return 0;
     }
-    if (infile == NULL) { //prints helful message if opening infile fails
+    if (infile == NULL) { //prints helpful message if opening infile fails
         printf("SYNOPSIS\n   Encrypts data using RSA encryption.\n   Encrypted data is decrypted "
                "by the decrypt program.\n\nUSAGE\n   ./encrypt [-hv] [-i infile] [-o outfile] -n "
                "pubkey\n\nOPTIONS\n   -h              Display program help and usage.\n   -v       "
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
                "(default: stdout).\n   -n pbfile       Public key file (default: rsa.pub).\n");
         return 0;
     }
-    if (outfile == NULL) { //prints helful message if opening outfile fails
+    if (outfile == NULL) { //prints helpful message if opening outfile fails
         printf("SYNOPSIS\n   Encrypts data using RSA encryption.\n   Encrypted data is decrypted "
                "by the decrypt program.\n\nUSAGE\n   ./encrypt [-hv] [-i infile] [-o outfile] -n "
                "pubkey\n\nOPTIONS\n   -h              Display program help and usage.\n   -v       "
