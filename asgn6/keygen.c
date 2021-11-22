@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
             return 0;
         }
     }
-    pbfile = fopen(pub, "w+"); //creates amd opens file with reading and writing permissions
+    pbfile = fopen(pub, "w+"); //creates and opens file with reading and writing permissions
     if (pbfile == NULL) { //prints help message if pbfile is NULL
         printf("SYNOPSIS\n   Generates an RSA public/private key pair.\n\nUSAGE\n   ./keygen [-hv] "
                "[-b bits] -n pbfile -d pvfile\n\nOPTIONS\n   -h              Display program help "
