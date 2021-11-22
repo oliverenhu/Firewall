@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
                "rsa.priv).\n   -s seed         Random seed for testing.\n");
         return 0;
     }
-    pvfile = fopen(priv, "w+"); //creates amd opens file with reading and writing permissions
+    pvfile = fopen(priv, "w+"); //creates and opens file with reading and writing permissions
 
     if (pvfile == NULL) { //prints help message if pvfile is NULL
         printf("SYNOPSIS\n   Generates an RSA public/private key pair.\n\nUSAGE\n   ./keygen [-hv] "
