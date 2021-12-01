@@ -1,6 +1,8 @@
 CC = clang
 CFLAGS = -Wall -Wpedantic -Werror -Wextra
 LFLAGS= -lm
+bf.o: bf.c
+	$(CC) $(CFLAG) -c bf.c
 
 bv.o: bv.c
 	$(CC) $(CFLAGS) -c bv.c

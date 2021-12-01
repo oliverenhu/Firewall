@@ -2,6 +2,7 @@
 #include "bv.h"
 #include "salts.h"
 #include "speck.h"
+#include "stdlib.h"
 struct BloomFilter {
 uint64_t primary[2]; // Primary hash function salt .
 uint64_t secondary[2]; // Secondary hash function salt .
@@ -19,30 +20,31 @@ BloomFilter *bf_create(uint32_t size){
                 bf->secondary[1]=SALT_SECONDARY_HI;
 		bf->tertiary[0]=SALT_TERTIARY_LO;
                 bf->tertiary[1]=SALT_TERTIARY_HI;
-		
+				
 	}
+	return bf;
 
 }
 void bf_delete(BloomFilter **bf){
-	bv_delete(bf->filter);
+	bv_delete(&(**bf).filter);
 	free(*bf);
 	bf=NULL;
 
 }
 uint32_t bf_size(BloomFilter *bf){
-	bv_length(bf->filter);
+	return bv_length(bf->filter);
 }
 void bf_insert(BloomFilter *bf, char *oldspeak){
-	bv_set_bit(bf->filter,hash(primary,oldspeak));
-	bv_set_bit(bf->filter,hash(secondary,oldspeak));
-	bv_set_bit(bf->filter,hash(tertiary,oldspeak));
+	bv_set_bit(bf->filter,hash(bf->primary,oldspeak));
+	bv_set_bit(bf->filter,hash(bf->secondary,oldspeak));
+	bv_set_bit(bf->filter,hash(bf->tertiary,oldspeak));
 }
 bool bf_probe(BloomFilter *bf, char *oldspeak){
-return(bv_get_bit(bf->filter,hash(primary,oldspeak)) && bv_get_bit(bf->filter,hash(secondary,oldspeak)) && bv_get_bit(bf->filter,hash(tertiary,oldspeak)));
+return(bv_get_bit(bf->filter,hash(bf->primary,oldspeak)) && bv_get_bit(bf->filter,hash(bf->secondary,oldspeak)) && bv_get_bit(bf->filter,hash(bf->tertiary,oldspeak)));
 }
 uint32_t bf_count(BloomFilter *bf){
 	uint32_t count=0;
-	for(uint32_t i;i< bf_size(bf);i++){
+	for(uint32_t i=0;i< bf_size(bf);i++){
 		if(bv_get_bit(bf->filter,i)){
 			count+=1;
 		}	
