@@ -1,29 +1,26 @@
-#include "node.c"
+#include "node.h"
 #include <string.h>
 #include <stdio.h>
-typedef struct Node Node;
-
-struct Node {
-    char *oldspeak;
-    char *newspeak;
-    Node *left;
-    Node *right;
-};
+#include <stdlib.h>
 
 Node *node_create(char *oldspeak, char *newspeak){
-	Node n= (Node *) malloc(sizeof(Node));
+	Node *n= (Node *) malloc(sizeof(Node));
 	if(n){
 		n->oldspeak=(char *)malloc(sizeof(char));
+		if(!oldspeak){
 		n->oldspeak=strdup(oldspeak);
+		}
 		n->newspeak=(char *)malloc(sizeof(char));
+		if(!newspeak){
 		n->newspeak=strdup(newspeak);
+		}
 	}
 	return n;	
 }
 void node_delete(Node **n){
-	free(n*->oldspeak);
-	free(n*->newspeak);
-	free(n*);
+	free((*n)->oldspeak);
+	free((*n)->newspeak);
+	free(*n);
 }
 void node_print(Node *n){
 	if(n->newspeak==NULL){
