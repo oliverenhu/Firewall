@@ -2,11 +2,11 @@
 #include "bst.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 uint64_t branches;
 
 Node *bst_create(void){
-	Node *root=node_create(NULL,NULL);
-	return root;
+	return NULL;
 }	
 static int max(int x,int y){
 	return x > y ? x : y;
@@ -45,16 +45,20 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak){
 		    branches+=1; 	
                     root->left=bst_insert(root->left,oldspeak,newspeak);    
                 }
-                else {
+                else if(strcmp(root->oldspeak,oldspeak)<0){
 		    branches+=1;
                     root->right=bst_insert(root->right,oldspeak,newspeak);
                 }
-		return root;
+		else if(strcmp(root->oldspeak,oldspeak)==0){
+		    return root;
+		}
 	}
+	
 	return node_create(oldspeak,newspeak);	
 }
 void bst_print(Node *root){
-	if(root){
+		
+	if(root){	
 		bst_print(root->left);
 		node_print(root);
 		bst_print(root->right);	

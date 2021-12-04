@@ -1,6 +1,12 @@
 CC = clang
 CFLAGS = -Wall -Wpedantic -Werror -Wextra
 LFLAGS= -lm
+banhammer: banhammer.o bst.o node.o bf.o bv.o speck.o parser.o 
+	$(CC) -o banhammer banhammer.o bst.o node.o bf.o bv.o speck.o parser.o $(LFLAGS)
+
+banhammer.o: banhammer.c bst.h node.h bf.h bv.h salts.h parser.h speck.h messages.h
+	$(CC) $(CFLAG) -c banhammer.c
+
 bst.o: bst.c bst.h node.h
 	$(CC) $(CFLAG) -c bst.c
 
@@ -12,6 +18,12 @@ bf.o: bf.c bf.h bv.h salts.h speck.h
 
 bv.o: bv.c bv.h
 	$(CC) $(CFLAGS) -c bv.c
+
+speck.o: speck.c speck.h
+	$(CC) $(CFLAGS) -c speck.c
+
+parser.o: parser.c parser.h
+	$(CC) $(CFLAGS) -c parser.c
 
 format:
 	clang-format -i -style=file *.[ch]
