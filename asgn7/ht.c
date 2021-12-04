@@ -36,8 +36,9 @@ uint32_t ht_size(HashTable *ht){
 	return ht->size;
 }
 Node *ht_lookup(HashTable *ht, char *oldspeak){
-	lookup+=1;
-	bst_find(ht->trees[hash(ht->salt,oldspeak)],oldspeak);
+	lookups+=1;
+	return bst_find(ht->trees[hash(ht->salt,oldspeak)],oldspeak);
+
 }
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak){
 	bst_insert(ht->trees[(hash(ht->salt,oldspeak))],oldspeak,newspeak);
@@ -79,4 +80,5 @@ void ht_print(HashTable *ht){
 		if(ht->trees[i]){
 			bst_print(ht->trees[i]);
 		}
+}
 }
