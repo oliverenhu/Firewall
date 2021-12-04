@@ -2,7 +2,9 @@
 #include "bv.h"
 #include "salts.h"
 #include "speck.h"
-#include "stdlib.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
 struct BloomFilter {
 uint64_t primary[2]; // Primary hash function salt .
 uint64_t secondary[2]; // Secondary hash function salt .
@@ -35,6 +37,7 @@ uint32_t bf_size(BloomFilter *bf){
 	return bv_length(bf->filter);
 }
 void bf_insert(BloomFilter *bf, char *oldspeak){
+	printf("h1 %u\n h2 %u\n h3 %u\n",hash(bf->primary,oldspeak),hash(bf->secondary,oldspeak),hash(bf->tertiary,oldspeak));	
 	bv_set_bit(bf->filter,hash(bf->primary,oldspeak));
 	bv_set_bit(bf->filter,hash(bf->secondary,oldspeak));
 	bv_set_bit(bf->filter,hash(bf->tertiary,oldspeak));
