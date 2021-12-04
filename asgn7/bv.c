@@ -19,8 +19,8 @@ BitVector *bv_create(uint32_t length){
 
 void bv_delete(BitVector **bv){
 	if(*bv &&(*bv)->vector){
-		free(*bv);
 		free((*bv)->vector);
+		free(*bv);
 		*bv =NULL;
 	}	
 	return;
@@ -36,7 +36,7 @@ bool bv_set_bit(BitVector *bv, uint32_t i){
         return false; 	
 }
 bool bv_clr_bit(BitVector *bv, uint32_t i){
-	if(i<=bv->length*8){
+	if(i<=bv->length){
                 bv->vector[i/8] &= ~(0x1 << i % 8);
                 return true;
         }
@@ -47,7 +47,7 @@ bool bv_clr_bit(BitVector *bv, uint32_t i){
 
 
 bool bv_get_bit(BitVector *bv, uint32_t i){
-	if(i<=bv->length*8){
+	if(i<=bv->length){
 	return (bv->vector[i / 8] >> i % 8) & 0x1;
 	}
 	return false;
