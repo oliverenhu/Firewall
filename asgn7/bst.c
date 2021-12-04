@@ -52,23 +52,25 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak){
 		else if(strcmp(root->oldspeak,oldspeak)==0){
 		    return root;
 		}
-		return root;
+		return root;	
 	}
 	
 	return node_create(oldspeak,newspeak);	
 }
 void bst_print(Node *root){
 		
-	if(root){	
+	if(root){
 		bst_print(root->left);
 		node_print(root);
 		bst_print(root->right);	
+		
 	}
 
 }
 void bst_delete(Node **root){
 	if(*root){
-		bst_delete(&(*root)->left);
+		
+		bst_delete(&(*root)->left);		
 		bst_delete(&(*root)->right);
 		node_delete(root);
 	}	

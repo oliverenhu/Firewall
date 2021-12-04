@@ -12,17 +12,24 @@ Node *node_create(char *oldspeak, char *newspeak){
 		}
 		
 		if(newspeak){
+		printf("newe");	
 		n->newspeak=strdup(newspeak);
 		}
-		
+		n->left=NULL;
+		n->right=NULL;	
 		
 	}
 	return n;	
 }
 void node_delete(Node **n){
 	if(*n){
+		if((*n)->oldspeak){
 		free((*n)->oldspeak);
+			}
+		if((*n)->newspeak){
+		printf("old");	
 		free((*n)->newspeak);
+		}
 		free(*n);
 
 		*n=NULL;
