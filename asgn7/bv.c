@@ -29,7 +29,7 @@ uint32_t bv_length(BitVector *bv){
 	return (bv->length);
 }
 bool bv_set_bit(BitVector *bv, uint32_t i){
-	if(i<=bv->length*8){
+	if(i<=bv->length){
 		bv->vector[i/8] |= (0x1 << i % 8);
         	return true;
         }
