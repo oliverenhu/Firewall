@@ -37,13 +37,12 @@ uint32_t bf_size(BloomFilter *bf){
 	return bv_length(bf->filter);
 }
 void bf_insert(BloomFilter *bf, char *oldspeak){
-	printf("h1 %u\n h2 %u\n h3 %u\n",hash(bf->primary,oldspeak),hash(bf->secondary,oldspeak),hash(bf->tertiary,oldspeak));	
-	bv_set_bit(bf->filter,hash(bf->primary,oldspeak));
-	bv_set_bit(bf->filter,hash(bf->secondary,oldspeak));
-	bv_set_bit(bf->filter,hash(bf->tertiary,oldspeak));
+	bv_set_bit(bf->filter,hash(bf->primary,oldspeak)%bf_size(bf));
+	bv_set_bit(bf->filter,hash(bf->secondary,oldspeak)%bf_size(bf));
+	bv_set_bit(bf->filter,hash(bf->tertiary,oldspeak)%bf_size(bf));
 }
 bool bf_probe(BloomFilter *bf, char *oldspeak){
-return(bv_get_bit(bf->filter,hash(bf->primary,oldspeak)) && bv_get_bit(bf->filter,hash(bf->secondary,oldspeak)) && bv_get_bit(bf->filter,hash(bf->tertiary,oldspeak)));
+return(bv_get_bit(bf->filter,hash(bf->primary,oldspeak)%bf_size(bf)) && bv_get_bit(bf->filter,hash(bf->secondary,oldspeak)%bf_size(bf)) && bv_get_bit(bf->filter,hash(bf->tertiary,oldspeak)%bf_size(bf)));
 }
 uint32_t bf_count(BloomFilter *bf){
 	uint32_t count=0;
