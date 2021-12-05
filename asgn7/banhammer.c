@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <stdlib.h>
-#define WORD "(?i)[a-z0-9A-Z_]+(?-i)([-']?(?i)[a-z0-9A-Z_]+)+"
+#define WORD "(?i)([a-z0-9A-Z_]+([-']?[a-z0-9A-Z_]+)*)"
 
 int main(int argc, char **argv) {
     uint32_t htsize = 2 << 16;
