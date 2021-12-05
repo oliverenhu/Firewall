@@ -46,7 +46,7 @@ Node *ht_lookup(HashTable *ht, char *oldspeak) {
     return bst_find(ht->trees[index], oldspeak);
 }
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
-    lookups+=1;
+    lookups += 1;
     uint32_t index = (hash(ht->salt, oldspeak)) % ht_size(ht);
     if (!ht->trees[index]) {
         ht->trees[index] = node_create(oldspeak, newspeak);
@@ -55,7 +55,7 @@ void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
     }
 }
 uint32_t ht_count(HashTable *ht) {
-    uint32_t count=0;
+    uint32_t count = 0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
             count += 1;
@@ -64,24 +64,24 @@ uint32_t ht_count(HashTable *ht) {
     return count;
 }
 double ht_avg_bst_size(HashTable *ht) {
-    double avg_size;
+    double avg_size = 0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
             avg_size += bst_size(ht->trees[i]);
         }
     }
-    avg_size /= (double)ht_count(ht);
+    avg_size /= (double) ht_count(ht);
     return avg_size;
 }
 
 double ht_avg_bst_height(HashTable *ht) {
-    double avg_height;
+    double avg_height = 0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
             avg_height += bst_height(ht->trees[i]);
         }
     }
-    avg_height /= (double)ht_count(ht);
+    avg_height /= (double) ht_count(ht);
     return avg_height;
 }
 

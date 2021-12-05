@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
 
     while ((opt = getopt(argc, argv, "t:f:sh")) != -1) { //commands for encryption
         switch (opt) {
-        case 't': htsize = (uint32_t)atoi(optarg); break; //opens specified infile for reading
-        case 'f': bfsize = (uint32_t)atoi(optarg); break;
+        case 't': htsize = (uint32_t) atoi(optarg); break; //opens specified infile for reading
+        case 'f': bfsize = (uint32_t) atoi(optarg); break;
         case 's': stats = true; break; //sets name of pubfile
         case 'h': return 0;
         }
@@ -95,24 +95,28 @@ int main(int argc, char **argv) {
             }
         }
     }
-    
-    if(stats){
-    printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: %0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",ht_avg_bst_size(ht),ht_avg_bst_height(ht),(double)branches/lookups,((double)100*ht_count(ht)/ht_size(ht)),(((double)100*bf_count(bf))/bf_size(bf)));
-    }    
-if (rightspeak && thoughtcrime &&!stats) {
+
+    if (stats) {
+        printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: "
+               "%0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",
+            ht_avg_bst_size(ht), ht_avg_bst_height(ht), (double) branches / lookups,
+            ((double) 100 * ht_count(ht) / ht_size(ht)),
+            (((double) 100 * bf_count(bf)) / bf_size(bf)));
+    }
+    if (rightspeak && thoughtcrime && !stats) {
         printf("%s", mixspeak_message);
         bst_print(bad_message);
         bst_print(new_message);
-    } else if (thoughtcrime && !rightspeak&&!stats) {
+    } else if (thoughtcrime && !rightspeak && !stats) {
         printf("%s", badspeak_message);
         bst_print(bad_message);
     }
 
-    else if (!thoughtcrime && rightspeak&&!stats) {
+    else if (!thoughtcrime && rightspeak && !stats) {
         printf("%s", goodspeak_message);
         bst_print(new_message);
     }
-	
+
     bst_delete(&bad_message);
     bst_delete(&new_message);
     fclose(bad);
