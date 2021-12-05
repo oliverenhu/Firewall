@@ -99,7 +99,7 @@ int main (int argc,char **argv){
 		}
 	}
 	if(rightspeak&&thoughtcrime){
-		printf("%s\n",mixspeak_message);
+		printf("%s",mixspeak_message);
 		for(int i=0;i<bad_index;i+=1){
 			printf("%s\n",bad_message[i]);	
 		}
@@ -111,14 +111,14 @@ int main (int argc,char **argv){
 
 	}
 	else if(thoughtcrime&&!rightspeak){
-		printf("%s\n",badspeak_message);
+		printf("%s",badspeak_message);
 		for(int i=0;i<bad_index;i+=1){
                         printf("%s\n",bad_message[i]);
                 }
 
 	}
 	else if(!thoughtcrime&&rightspeak){
-                printf("%s\n",goodspeak_message);
+                printf("%s",goodspeak_message);
 		for(int i=0;i<new_index;i+=1){
                         node_print(ht_lookup(ht,new_message[i]));
                 }
@@ -127,7 +127,8 @@ int main (int argc,char **argv){
 		
 
 
-
+	fclose(bad);
+	fclose(new);
 	bf_delete(&bf);
 	ht_delete(&ht);
 	clear_words();
