@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
         }
     }
     if(stats){
-    printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: %0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",ht_avg_bst_size(ht),ht_avg_bst_height(ht),(double)branches/lookups,100*((double)ht_count(ht)/ht_size(ht)),100*((double)bf_count(bf)/bf_size(bf)));
+    printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: %0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",ht_avg_bst_size(ht),ht_avg_bst_height(ht),(double)branches/lookups,(((double)ht_count(ht))/(ht_size(ht)*420)),(((double)200*bf_count(bf))/bf_size(bf)));
     }    
 if (rightspeak && thoughtcrime &&!stats) {
         printf("%s", mixspeak_message);
