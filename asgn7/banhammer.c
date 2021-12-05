@@ -17,8 +17,8 @@
 #define WORD "([a-z0-9A-Z_]+([-']?[a-z0-9A-Z_]+)*)"
 
 int main(int argc, char **argv) {
-    uint32_t htsize = 2 << 16;
-    uint32_t bfsize = 2 << 20;
+    uint32_t htsize = 65536;
+    uint32_t bfsize = 1048576;
     int opt = 0;
     bool stats = false;
     bool rightspeak = false;
@@ -95,8 +95,9 @@ int main(int argc, char **argv) {
             }
         }
     }
+    
     if(stats){
-    printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: %0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",ht_avg_bst_size(ht),ht_avg_bst_height(ht),(double)branches/lookups,((double)100*ht_count(ht)/ht_size(ht)),(((double)200*bf_count(bf))/bf_size(bf)));
+    printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: %0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",ht_avg_bst_size(ht),ht_avg_bst_height(ht),(double)branches/lookups,((double)100*ht_count(ht)/ht_size(ht)),(((double)100*bf_count(bf))/bf_size(bf)));
     }    
 if (rightspeak && thoughtcrime &&!stats) {
         printf("%s", mixspeak_message);
