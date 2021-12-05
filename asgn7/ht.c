@@ -55,7 +55,7 @@ void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
     }
 }
 uint32_t ht_count(HashTable *ht) {
-    uint32_t count;
+    uint32_t count=0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
             count += 1;

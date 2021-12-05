@@ -44,13 +44,13 @@ bool bf_probe(BloomFilter *bf, char *oldspeak) {
             && bv_get_bit(bf->filter, hash(bf->tertiary, oldspeak) % bf_size(bf)));
 }
 uint32_t bf_count(BloomFilter *bf) {
-    uint32_t count = 0;
+    uint32_t bf_count = 0;
     for (uint32_t i = 0; i < bf_size(bf); i++) {
         if (bv_get_bit(bf->filter, i)) {
-            count += 1;
+            bf_count += 1;
         }
     }
-    return count;
+    return bf_count;
 }
 void bf_print(BloomFilter *bf) {
     bv_print(bf->filter);
