@@ -102,7 +102,7 @@ int main (int argc,char **argv){
 		
 	}
 	if(rightspeak&&thoughtcrime){
-		printf("%s",mixspeak_message);
+		printf("%s",badspeak_message);
 		bst_print(bad_message);
                 bst_print(new_message);
                 }
