@@ -2,6 +2,8 @@
 #include "salts.h"
 #include "speck.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
 uint64_t lookups;
 
 struct HashTable {
@@ -25,6 +27,11 @@ HashTable *ht_create(uint32_t size){
 void ht_delete(HashTable **ht){
 	if(*ht&&(*ht)->trees){
 		
+		for(int i=0;i<ht_size(*ht);i+=1){
+			if((*ht)->trees[i]){
+				bst_delete(&((*ht)->trees[i]));
+			}	
+		}		
 		free((*ht)->trees);
 		free(*ht);
 		
@@ -37,11 +44,19 @@ uint32_t ht_size(HashTable *ht){
 }
 Node *ht_lookup(HashTable *ht, char *oldspeak){
 	lookups+=1;
-	return bst_find(ht->trees[hash(ht->salt,oldspeak)],oldspeak);
+	uint32_t index=(hash(ht->salt,oldspeak))%ht_size(ht);
+	return bst_find(ht->trees[index],oldspeak);
 
 }
 void ht_insert(HashTable *ht, char *oldspeak, char *newspeak){
-	bst_insert(ht->trees[(hash(ht->salt,oldspeak))],oldspeak,newspeak);
+	uint32_t index=(hash(ht->salt,oldspeak))%ht_size(ht);
+	if(!ht->trees[index]){
+		ht->trees[index]=node_create(oldspeak,newspeak);
+	}
+	else{
+ 	bst_insert(ht->trees[index],oldspeak,newspeak);
+	}
+	
 }
 uint32_t ht_count(HashTable *ht){
 	uint32_t count;
