@@ -42,17 +42,13 @@ int main (int argc,char **argv){
 	HashTable *ht=ht_create(htsize);
 	bad=fopen("badspeak.txt","r");
 	new=fopen("newspeak.txt","r");
-	uint32_t bad_count=0;
-	uint32_t bad_index=0;
-	uint32_t new_count=0;
-	uint32_t new_index=0;
 	while(1){
 		fscanf(bad,"%s\n",badspeak);
 		
 		
 		bf_insert(bf,badspeak);
 		ht_insert(ht,badspeak,NULL);
-		bad_count+=1;
+	
 		if(feof(bad)){
 			break;
 		}
@@ -61,16 +57,16 @@ int main (int argc,char **argv){
                 fscanf(new,"%s %s\n",oldspeak,newspeak);
 		bf_insert(bf,oldspeak);
                 ht_insert(ht,oldspeak,newspeak);
-		new_count+=1;
+		
 		if(feof(new)){
                         break;
                 }
 
         }
 		
-	char *bad_message[bad_count];
-	char *new_message[new_count];
 
+	Node* new_message=bst_create();
+	Node* bad_message=bst_create();
 
 	regex_t re;
 	if ( regcomp(&re , WORD , REG_EXTENDED ) ) {
@@ -79,54 +75,55 @@ int main (int argc,char **argv){
 }
 	
 	char *word = NULL ;
-	while (( word = next_word(stdin,&re))!= NULL ) {
-		if(bf_probe(bf,word)){
-			
-			if(ht_lookup(ht,word)->oldspeak){
-				if(ht_lookup(ht,word)->newspeak){
-					new_message[new_index]=ht_lookup(ht,word)->oldspeak;
-					new_index+=1;
-					rightspeak=true;	
+	while (( word = next_word(stdin,&re))!= NULL ) {			
+		if(bf_probe(bf,word)&&ht_lookup(ht,word)->oldspeak){
+			if(ht_lookup(ht,word)->newspeak){
+				if(!new_message){
+					new_message=node_create(ht_lookup(ht,word)->oldspeak,ht_lookup(ht,word)->newspeak);	
 				}
-				
 				else{
-					bad_message[bad_index]=ht_lookup(ht,word)->oldspeak;
-					bad_index+=1;
-					thoughtcrime=true;	
+					bst_insert(new_message,ht_lookup(ht,word)->oldspeak,ht_lookup(ht,word)->newspeak);	
 				}
-				
+				rightspeak=true;	
 			}
+			
+			else{
+				if(!bad_message){
+                                        bad_message=node_create(ht_lookup(ht,word)->oldspeak,NULL);
+                                }
+                                else{
+                                        bst_insert(bad_message,ht_lookup(ht,word)->oldspeak,NULL);
+                                }
+
+				thoughtcrime=true;	
+			}
+			
 		}
+		
 	}
 	if(rightspeak&&thoughtcrime){
 		printf("%s",mixspeak_message);
-		for(int i=0;i<bad_index;i+=1){
-			printf("%s\n",bad_message[i]);	
-		}
-		for(int i=0;i<new_index;i+=1){
-                        node_print(ht_lookup(ht,new_message[i]));
+		bst_print(bad_message);
+                bst_print(new_message);
                 }
 
 
 
-	}
+	
 	else if(thoughtcrime&&!rightspeak){
 		printf("%s",badspeak_message);
-		for(int i=0;i<bad_index;i+=1){
-                        printf("%s\n",bad_message[i]);
-                }
-
+		bst_print(bad_message);
 	}
 	else if(!thoughtcrime&&rightspeak){
                 printf("%s",goodspeak_message);
-		for(int i=0;i<new_index;i+=1){
-                        node_print(ht_lookup(ht,new_message[i]));
-                }
-        }
+        	bst_print(new_message);
+
+	}
 	
 		
 
-
+	bst_delete(&bad_message);
+	bst_delete(&new_message);
 	fclose(bad);
 	fclose(new);
 	bf_delete(&bf);
