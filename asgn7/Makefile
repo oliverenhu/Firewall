@@ -1,6 +1,7 @@
 CC = clang
 CFLAGS = -Wall -Wpedantic -Werror -Wextra
 LFLAGS= -lm
+all: banhammer
 banhammer: banhammer.o bst.o node.o bf.o ht.o bv.o speck.o parser.o 
 	$(CC) -o banhammer banhammer.o bst.o node.o ht.o bf.o bv.o speck.o parser.o $(LFLAGS)
 
