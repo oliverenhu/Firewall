@@ -69,7 +69,7 @@ double ht_avg_bst_size(HashTable *ht) {
             avg_size += bst_size(ht->trees[i]);
         }
     }
-    avg_size /= ht_count(ht);
+    avg_size /= (double)ht_count(ht);
     return avg_size;
 }
 
@@ -80,7 +80,7 @@ double ht_avg_bst_height(HashTable *ht) {
             avg_height += bst_height(ht->trees[i]);
         }
     }
-    avg_height /= ht_count(ht);
+    avg_height /= (double)ht_count(ht);
     return avg_height;
 }
 
