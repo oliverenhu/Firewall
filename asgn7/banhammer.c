@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <stdlib.h>
-# define WORD "[a-z0-9A-Z'_-]+"
+# define WORD "[a-z0-9A-Z]+"
 
 int main (int argc,char **argv){
 	uint32_t htsize=2<<16;
