@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 #define WORD "([a-z0-9A-Z_]+([-']?[a-z0-9A-Z_]+)*)"
 
 int main(int argc, char **argv) {
@@ -72,7 +74,10 @@ int main(int argc, char **argv) {
 
     char *word = NULL;
     while ((word = next_word(stdin, &re)) != NULL) {
-        if (bf_probe(bf, word) && ht_lookup(ht, word)->oldspeak) {
+       	for (int i=0;i<strlen(word);i+=1){
+		word[i]=tolower(word[i]);
+	}	
+	if (bf_probe(bf, word) && ht_lookup(ht, word)->oldspeak) {
             if (ht_lookup(ht, word)->newspeak) {
                 if (!new_message) {
                     new_message
