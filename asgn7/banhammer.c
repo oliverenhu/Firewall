@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <inttypes.h>
 #include <stdlib.h>
-# define WORD "[a-z0-9A-Z]+"
+# define WORD "[a-z0-9A-Z_]+"
 
 int main (int argc,char **argv){
 	uint32_t htsize=2<<16;
@@ -114,12 +114,13 @@ int main (int argc,char **argv){
 		printf("%s",badspeak_message);
 		bst_print(bad_message);
 	}
+	/*
 	else if(!thoughtcrime&&rightspeak){
                 printf("%s",goodspeak_message);
         	bst_print(new_message);
 
 	}
-	
+	*/
 		
 
 	bst_delete(&bad_message);
