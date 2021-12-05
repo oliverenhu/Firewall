@@ -114,13 +114,13 @@ int main (int argc,char **argv){
 		printf("%s",badspeak_message);
 		bst_print(bad_message);
 	}
-	/*
+	
 	else if(!thoughtcrime&&rightspeak){
                 printf("%s",goodspeak_message);
         	bst_print(new_message);
 
 	}
-	*/
+	
 		
 
 	bst_delete(&bad_message);
