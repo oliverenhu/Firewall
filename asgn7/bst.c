@@ -8,21 +8,21 @@ Node *bst_create(void) {
     return NULL;
 }
 static int max(int x, int y) {
-    return x > y ? x : y;
+    return x > y ? x : y; //helper function for height and size
 }
 uint32_t bst_height(Node *root) {
-    if (root) {
+    if (root) { //recursively finds height of bst
         return 1 + max(bst_height(root->left), bst_height(root->right));
     }
     return 0;
 }
-uint32_t bst_size(Node *root) {
+uint32_t bst_size(Node *root) { //recursively finds size of bst
     if (root) {
         return 1 + bst_size(root->left) + bst_size(root->right);
     }
     return 0;
 }
-Node *bst_find(Node *root, char *oldspeak) {
+Node *bst_find(Node *root, char *oldspeak) { //returns the node according to the oldspeak
     if (root) {
         if (strcmp(root->oldspeak, oldspeak) > 0) {
             branches += 1;
@@ -34,7 +34,8 @@ Node *bst_find(Node *root, char *oldspeak) {
     }
     return root;
 }
-Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
+Node *bst_insert(
+    Node *root, char *oldspeak, char *newspeak) { //adds node based on alphabetical ordering
     if (root) {
         if (strcmp(root->oldspeak, oldspeak) > 0) {
             branches += 1;
@@ -50,7 +51,7 @@ Node *bst_insert(Node *root, char *oldspeak, char *newspeak) {
 
     return node_create(oldspeak, newspeak);
 }
-void bst_print(Node *root) {
+void bst_print(Node *root) { //prints out bst in order
 
     if (root) {
         bst_print(root->left);
@@ -58,7 +59,7 @@ void bst_print(Node *root) {
         bst_print(root->right);
     }
 }
-void bst_delete(Node **root) {
+void bst_delete(Node **root) { //recursively postorder deletes nodes
     if (*root) {
 
         bst_delete(&(*root)->left);

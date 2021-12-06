@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     char *word = NULL;
     while (
         (word = next_word(stdin, &re))
-        != NULL) { //parses through stdin and cheacks if the word is part of badspeak and newspeak and prints them out accordingly
+        != NULL) { //parses through stdin and checks if the word is part of badspeak and newspeak and prints them out accordingly
         for (int i = 0; i < strlen(word); i += 1) {
             word[i] = tolower(word[i]);
         }

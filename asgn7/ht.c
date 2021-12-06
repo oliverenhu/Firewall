@@ -12,7 +12,8 @@ struct HashTable {
     Node **trees;
 };
 
-HashTable *ht_create(uint32_t size) {
+HashTable *ht_create(uint32_t
+        size) { //creates the salt for hash and dynamically allocates an array of bst and stores size
     HashTable *ht = (HashTable *) malloc(sizeof(HashTable));
     if (ht) {
         ht->size = size;
@@ -22,7 +23,7 @@ HashTable *ht_create(uint32_t size) {
     }
     return ht;
 }
-void ht_delete(HashTable **ht) {
+void ht_delete(HashTable **ht) { //deletes bst trees and frees ht
     if (*ht && (*ht)->trees) {
 
         for (int i = 0; i < ht_size(*ht); i += 1) {
@@ -37,15 +38,18 @@ void ht_delete(HashTable **ht) {
     }
     return;
 }
-uint32_t ht_size(HashTable *ht) {
+uint32_t ht_size(HashTable *ht) { //returns size
     return ht->size;
 }
-Node *ht_lookup(HashTable *ht, char *oldspeak) {
+Node *ht_lookup(HashTable *ht, char *oldspeak) { //uses bst_find to determine if oldspeak is in ht
     lookups += 1;
     uint32_t index = (hash(ht->salt, oldspeak)) % ht_size(ht);
     return bst_find(ht->trees[index], oldspeak);
 }
-void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
+void ht_insert(HashTable *ht, char *oldspeak,
+    char *
+        newspeak) { //inserts a new node based off oldspeak and newspeak using hashing to find the index
+
     lookups += 1;
     uint32_t index = (hash(ht->salt, oldspeak)) % ht_size(ht);
     if (!ht->trees[index]) {
@@ -54,7 +58,7 @@ void ht_insert(HashTable *ht, char *oldspeak, char *newspeak) {
         bst_insert(ht->trees[index], oldspeak, newspeak);
     }
 }
-uint32_t ht_count(HashTable *ht) {
+uint32_t ht_count(HashTable *ht) { //counts the number of non-Null bsts
     uint32_t count = 0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
@@ -63,7 +67,7 @@ uint32_t ht_count(HashTable *ht) {
     }
     return count;
 }
-double ht_avg_bst_size(HashTable *ht) {
+double ht_avg_bst_size(HashTable *ht) { //returns the average bst size
     double avg_size = 0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
@@ -74,7 +78,7 @@ double ht_avg_bst_size(HashTable *ht) {
     return avg_size;
 }
 
-double ht_avg_bst_height(HashTable *ht) {
+double ht_avg_bst_height(HashTable *ht) { //returns the average bst height
     double avg_height = 0;
     for (int i = 0; i < ht_size(ht); i += 1) {
         if (ht->trees[i]) {
