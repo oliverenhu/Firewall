@@ -33,8 +33,11 @@ int main(int argc, char **argv) {
 
     while ((opt = getopt(argc, argv, "t:f:sh")) != -1) { //commands for encryption
         switch (opt) {
-        case 't': htsize = (uint32_t) atoi(optarg); break; //opens specified infile for reading
-        case 'f': bfsize = (uint32_t) atoi(optarg); break;
+        case 't': if((uint32_t) atoi(optarg)>0){
+		htsize = (uint32_t) atoi(optarg);
+		  }	break;
+        case 'f': if((uint32_t) atoi(optarg)>0){
+		  bfsize = (uint32_t) atoi(optarg);} break;
         case 's': stats = true; break; //sets name of pubfile
         case 'h': return 0;
         }
