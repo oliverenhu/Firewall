@@ -33,11 +33,11 @@ int main(int argc, char **argv) {
 
     while ((opt = getopt(argc, argv, "t:f:sh")) != -1) { //commands for encryption
         switch (opt) {
-        case 't': if((uint32_t) atoi(optarg)>0){
+        case 't': 
 		htsize = (uint32_t) atoi(optarg);
-		  }	break;
-        case 'f': if((uint32_t) atoi(optarg)>0){
-		  bfsize = (uint32_t) atoi(optarg);} break;
+		  	break;
+        case 'f': 
+		  bfsize = (uint32_t) atoi(optarg); break;
         case 's': stats = true; break; //sets name of pubfile
         case 'h': return 0;
         }
@@ -74,36 +74,41 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Failed to compile regex .\n");
         return 1;
     }
-
+\
     char *word = NULL;
     while ((word = next_word(stdin, &re)) != NULL) {
        	for (int i=0;i<strlen(word);i+=1){
 		word[i]=tolower(word[i]);
 	}	
-	if (bf_probe(bf, word) && ht_lookup(ht, word)->oldspeak) {
-            if (ht_lookup(ht, word)->newspeak) {
-                if (!new_message) {
-                    new_message
-                        = node_create(ht_lookup(ht, word)->oldspeak, ht_lookup(ht, word)->newspeak);
-                } else {
-                    bst_insert(
-                        new_message, ht_lookup(ht, word)->oldspeak, ht_lookup(ht, word)->newspeak);
-                }
-                rightspeak = true;
-            }
+	if (bf_probe(bf, word)){ 
+		
+		if(ht_lookup(ht, word)) {
+			
+            		if (ht_lookup(ht, word)->newspeak) {
+                		if (!new_message) {
+                    		new_message
+                       			 = node_create(ht_lookup(ht, word)->oldspeak, ht_lookup(ht, word)->newspeak);
+               			} else {
+                    		bst_insert(
+                        		new_message, ht_lookup(ht, word)->oldspeak, ht_lookup(ht, word)->newspeak);
+                		}
+                		rightspeak = true;
+            			}
 
-            else {
-                if (!bad_message) {
-                    bad_message = node_create(ht_lookup(ht, word)->oldspeak, NULL);
-                } else {
-                    bst_insert(bad_message, ht_lookup(ht, word)->oldspeak, NULL);
-                }
+            	else {
+                	if (!bad_message) {
+                        	bad_message = node_create(ht_lookup(ht, word)->oldspeak, NULL);
+                	} else {
+                    	bst_insert(bad_message, ht_lookup(ht, word)->oldspeak, NULL);
+                	}
 
-                thoughtcrime = true;
-            }
-        }
+                	thoughtcrime = true;
+            	}
+        	}
+	}
+    
     }
-
+	
     if (stats) {
         printf("Average BST size: %0.6f\nAverage BST height: %0.6f\nAverage branches traversed: "
                "%0.6f\nHash table load: %0.6f%%\nBloom filter load: %0.6f%%\n",
