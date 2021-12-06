@@ -7,7 +7,9 @@ struct BitVector {
     uint8_t *vector;
 };
 
-BitVector *bv_create(uint32_t length) {
+BitVector *bv_create(uint32_t
+        length) { //Creates a bit vector with a given length and dynamically allocated 8 bit vector.
+
     BitVector *bv = (BitVector *) malloc(sizeof(BitVector));
     if (bv) {
         bv->length = length;
@@ -17,7 +19,7 @@ BitVector *bv_create(uint32_t length) {
     return NULL;
 }
 
-void bv_delete(BitVector **bv) {
+void bv_delete(BitVector **bv) { //Frees vector and bit vector
     if (*bv && (*bv)->vector) {
         free((*bv)->vector);
         free(*bv);
@@ -28,14 +30,16 @@ void bv_delete(BitVector **bv) {
 uint32_t bv_length(BitVector *bv) {
     return (bv->length);
 }
-bool bv_set_bit(BitVector *bv, uint32_t i) {
+bool bv_set_bit(BitVector *bv, uint32_t i) { //sets bit of vector to 1 using bitwise operations
+
     if (i <= bv->length) {
         bv->vector[i / 8] |= (0x1 << i % 8);
         return true;
     }
     return false;
 }
-bool bv_clr_bit(BitVector *bv, uint32_t i) {
+bool bv_clr_bit(BitVector *bv, uint32_t i) { //sets bit of vector to 0 using bitwise operations
+
     if (i <= bv->length) {
         bv->vector[i / 8] &= ~(0x1 << i % 8);
         return true;
@@ -43,7 +47,7 @@ bool bv_clr_bit(BitVector *bv, uint32_t i) {
     return false;
 }
 
-bool bv_get_bit(BitVector *bv, uint32_t i) {
+bool bv_get_bit(BitVector *bv, uint32_t i) { //eturn the bit and specified index of vector
     if (i <= bv->length) {
         return (bv->vector[i / 8] >> i % 8) & 0x1;
     }
