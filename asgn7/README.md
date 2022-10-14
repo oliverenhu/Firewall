@@ -1,4 +1,4 @@
-##The Great Firewall of Santa Cruz
+## The Great Firewall of Santa Cruz
 
 Description: This program will utlize two text files to create a filter for a stdin input. The first filter will take words from "badspeak.txt" and store them into a BloomFilter inorder to filter out those specific words from the input and return those words as unacceptatble to the user. A secocnd text file "newspeak.txt" will provided translations for certain words provided and will reeducate the user in giving them the newspeak translation of their words. The banhammer program will also allow the user to see statistics invloving the innerworkings of the FireWall.
 
